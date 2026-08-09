@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OusBrain — Arabe &amp; Coran</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="brand" data-route="home" aria-label="Accueil OusBrain"><span class="brand-star">★</span><span>OusBrain</span><b>Arabe &amp; Coran</b></button>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <button data-route="home" class="nav-item active">Accueil</button>
+        <button data-route="decks" class="nav-item">Paquets</button>
+        <button data-route="add" class="nav-item">Ajouter</button>
+        <button data-route="browse" class="nav-item">Parcourir</button>
+        <button data-route="stats" class="nav-item">Statistiques</button>
+        <button data-route="settings" class="nav-item">Réglages</button>
+      </nav>
+      <div class="top-actions">
+        <button class="streak-pill" data-route="stats" aria-label="Voir la série quotidienne">🔥 <span id="sidebarStreak">0</span> j</button>
+        <button class="icon-btn" id="topThemeToggle" aria-label="Changer de thème">☾</button>
+      </div>
+    </header>
+
+    <header class="mobile-header"><button class="mobile-brand" data-route="home"><span>★</span><b>OusBrain</b><small>Arabe &amp; Coran</small></button><button class="icon-btn" data-route="settings">⚙</button></header>
+
+    <main id="app" tabindex="-1"></main>
+
+    <footer class="statusbar">
+      <span id="statusMessage">Collection prête</span>
+      <span><b id="footerDue">0</b> cartes à réviser aujourd’hui</span>
+    </footer>
+    <nav class="mobile-nav"><button data-route="home"><span>⌂</span>Accueil</button><button data-route="decks"><span>◫</span>Paquets</button><button data-route="add"><span>＋</span>Ajouter</button><button data-route="browse"><span>⌕</span>Parcourir</button><button data-route="stats"><span>▥</span>Stats</button></nav>
+  </div>
+
+  <template id="homeView">
+    <section class="dashboard-view">
+      <div class="dashboard-head"><div><h1>Bienvenue ! <button id="dashboardTheme" aria-label="Changer de thème">☾</button></h1><p>Étudiez un peu chaque jour et progressez durablement.</p></div><div class="dashboard-actions"><button class="hero-study" id="startAllBtn">▶ Commencer à étudier</button><p>Anticipation : <b>◷ <span id="homeLearnAhead">20</span> min</b><button data-route="settings">Modifier</button></p></div></div>
+      <div class="dashboard-metrics"><article class="dash-metric blue"><span>◰</span><div><b id="homeNew">0</b><strong>Nouvelles cartes</strong><small>à découvrir</small></div></article><article class="dash-metric gold"><span>◇</span><div><b id="homeLearn">0</b><strong>En apprentissage</strong><small>à réviser</small></div></article><article class="dash-metric green"><span>↻</span><div><b id="homeReview">0</b><strong>À réviser</strong><small>aujourd’hui</small></div></article></div>
+      <section class="dash-panel home-decks"><header><h2>Vos paquets</h2><button data-route="decks">Voir tous les paquets ›</button></header><div class="home-deck-head"><span>PAQUET</span><span>NOUVELLES</span><span>APPRENTISSAGE</span><span>À RÉVISER</span><span></span></div><div id="homeDeckRows"></div><footer><button id="homeNewDeckBtn">＋ Créer un nouveau paquet</button></footer></section>
+      <div class="dashboard-grid"><section class="dash-panel activity-panel"><header><h2>Activité récente</h2><button data-route="stats">Voir tout</button></header><div id="homeActivity"></div></section><section class="dash-panel mini-stats"><header><h2>Statistiques</h2><select id="homeStatsRange"><option>7 derniers jours</option></select></header><div class="mini-stat-values"><div><b id="homeReviews">0</b><span>Cartes étudiées</span></div><div><b id="homeRetention">—</b><span>Taux de réussite</span></div><div><b id="homeStudyTime">0 min</b><span>Temps moyen</span></div></div><div class="mini-chart" id="homeChart"></div></section></div>
+      <div class="dashboard-grid lower"><section class="dash-panel resume-panel"><header><h2>Reprendre rapidement</h2></header><div id="resumeCard"></div></section><section class="dash-panel quick-panel"><header><h2>Actions rapides</h2></header><div><button data-route="add"><span class="blue">＋</span>Ajouter une carte</button><button data-route="browse"><span class="green">⌕</span>Parcourir les cartes</button><button id="homeImportBtn"><span class="violet">⇧</span>Importer</button><button id="homeExportBtn"><span class="orange">⇩</span>Exporter</button></div></section></div>
+      <p class="local-note">◈ Vos données sont enregistrées localement dans votre navigateur.</p>
+    </section>
+  </template>
+
+  <template id="decksView">
+    <section class="view decks-view">
+      <div class="view-head">
+        <div><p class="kicker">COLLECTION</p><h1>Paquets</h1></div>
+        <div class="head-actions">
+          <button class="btn secondary" id="importBtn">Importer</button>
+          <button class="btn primary" id="newDeckBtn">+ Nouveau paquet</button>
+        </div>
+      </div>
+      <div class="deck-table card-panel">
+        <div class="deck-row deck-header"><span>Paquet</span><span>Nouveau</span><span>À apprendre</span><span>À réviser</span><span></span></div>
+        <div id="deckRows"></div>
+      </div>
+      <div class="today-summary">
+        <div><span class="summary-icon blue">★</span><p><b id="summaryReviews">0</b><small>Révisions aujourd’hui</small></p></div>
+        <div><span class="summary-icon green">✓</span><p><b id="summaryRetention">—</b><small>Rétention</small></p></div>
+        <div><span class="summary-icon orange">◔</span><p><b id="summaryTime">0 min</b><small>Temps d’étude</small></p></div>
+      </div>
+    </section>
+  </template>
+
+  <template id="overviewView">
+    <section class="view overview-view">
+      <button class="back-link" data-route="decks">← Paquets</button>
+      <div class="overview-card card-panel">
+        <div class="deck-title"><span class="deck-symbol">★</span><div><p class="kicker">PAQUET</p><h1 id="overviewName"></h1></div></div>
+        <div class="due-columns">
+          <div class="due-stat new"><b id="overviewNew">0</b><span>Nouvelles</span></div>
+          <div class="due-stat learn"><b id="overviewLearn">0</b><span>À apprendre</span></div>
+          <div class="due-stat review"><b id="overviewReview">0</b><span>À réviser</span></div>
+        </div>
+        <button class="study-button" id="studyBtn">Commencer à étudier</button>
+        <p class="next-due" id="nextDue"></p>
+      </div>
+      <div class="overview-actions">
+        <button class="text-btn" data-route="browse">Parcourir</button>
+        <button class="text-btn" id="customStudyBtn">Étude personnalisée</button>
+        <button class="text-btn" data-route="stats">Options</button>
+      </div>
+    </section>
+  </template>
+
+  <template id="reviewView">
+    <section class="review-view">
+      <div class="review-top">
+        <button class="back-link" id="endSessionBtn">× Terminer</button>
+        <div class="review-progress"><span id="reviewDeckName"></span><div><i id="reviewProgressFill"></i></div></div>
+        <div class="review-counts"><span class="new-count" id="sessionNew">0</span><span class="learn-count" id="sessionLearn">0</span><span class="review-count" id="sessionReview">0</span></div>
+      </div>
+      <article class="study-card" id="studyCard">
+        <div class="card-tag" id="cardDirection"></div>
+        <div class="card-content">
+          <p class="prompt-label">QUESTION</p>
+          <div class="card-question" id="cardQuestion"></div>
+          <div class="card-answer hidden" id="cardAnswer">
+            <hr><p class="prompt-label">RÉPONSE</p><div id="cardAnswerText"></div><p class="card-note" id="cardNote"></p>
+            <section class="quran-example hidden" id="quranExample">
+              <button type="button" class="quran-example-toggle" id="quranExampleToggle">▣ Voir un exemple dans le Coran <span>⌄</span></button>
+              <div class="quran-example-panel hidden" id="quranExamplePanel">
+                <p class="quran-example-label">EXEMPLE DANS LE CORAN</p>
+                <p class="quran-example-verse arabic-text" id="quranExampleVerse" lang="ar" dir="rtl"></p>
+                <p class="quran-example-reference" id="quranExampleReference"></p>
+                <p class="quran-example-translation" id="quranExampleTranslation"></p>
+                <p class="quran-example-match" id="quranExampleMatch"></p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </article>
+      <div class="review-controls">
+        <button class="show-answer" id="showAnswerBtn">Afficher la réponse <kbd>Espace</kbd></button>
+        <div class="answer-buttons hidden" id="answerButtons">
+          <button data-grade="again" class="again"><span>Encore</span><small id="againInterval">&lt; 1 min</small><kbd>1</kbd></button>
+          <button data-grade="hard" class="hard"><span>Difficile</span><small id="hardInterval">6 min</small><kbd>2</kbd></button>
+          <button data-grade="good" class="good"><span>Bien</span><small id="goodInterval">10 min</small><kbd>3</kbd></button>
+          <button data-grade="easy" class="easy"><span>Facile</span><small id="easyInterval">4 j</small><kbd>4</kbd></button>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <template id="addView">
+    <section class="view form-view">
+      <div class="view-head"><div><p class="kicker">COLLECTION</p><h1>Ajouter une carte</h1></div></div>
+      <form id="addForm" class="editor card-panel">
+        <div class="form-row"><label>Type de note</label><select><option>Basique (et carte inversée)</option></select></div>
+        <div class="form-row"><label>Paquet</label><select id="addDeckSelect"></select></div>
+        <div class="field"><label for="frontField">Recto</label><textarea id="frontField" dir="auto" required placeholder="Saisissez la question…"></textarea></div>
+        <div class="field"><label for="backField">Verso</label><textarea id="backField" dir="auto" required placeholder="Saisissez la réponse…"></textarea></div>
+        <div class="field"><label for="noteField">Note <span>facultatif</span></label><input id="noteField" placeholder="Astuce, exemple ou moyen mnémotechnique"></div>
+        <div class="form-actions"><button type="button" class="btn secondary" id="clearFormBtn">Effacer</button><button class="btn primary">Ajouter</button></div>
+      </form>
+    </section>
+  </template>
+
+  <template id="browseView">
+    <section class="browse-view">
+      <aside class="browser-sidebar"><h2>Parcourir</h2><button class="side-item active" data-filter="all">🗃 Toutes les cartes <span id="allCardCount"></span></button><p>PAQUETS</p><div id="browseDecks"></div></aside>
+      <div class="browser-main">
+        <div class="browser-toolbar"><input id="searchCards" type="search" placeholder="🔍 Rechercher dans les cartes"><button class="btn primary" data-route="add">+ Ajouter</button></div>
+        <div class="browser-content"><div class="cards-list"><div class="list-head"><span>Question</span><span>Réponse</span><span>Échéance</span></div><div id="cardRows"></div></div><div class="empty-selection" id="emptySelection"><span>🃏</span><p>Sélectionnez une carte pour la modifier</p></div><form class="card-editor hidden" id="cardEditor"><div class="field"><label>Recto</label><textarea id="editFront" dir="auto"></textarea></div><div class="field"><label>Verso</label><textarea id="editBack" dir="auto"></textarea></div><div class="field"><label>Note</label><input id="editNote"></div><div class="form-actions"><button type="button" class="btn danger" id="deleteCardBtn">Supprimer</button><button class="btn primary">Enregistrer</button></div></form></div>
+      </div>
+    </section>
+  </template>
+
+  <template id="statsView">
+    <section class="view stats-view">
+      <div class="view-head"><div><p class="kicker">PROGRESSION</p><h1>Statistiques</h1></div><select id="statsDeckSelect"></select></div>
+      <div class="metric-grid"><div class="metric card-panel"><span>Révisions</span><b id="statReviews">0</b><small>30 derniers jours</small></div><div class="metric card-panel"><span>Rétention</span><b id="statRetention">—</b><small>Réponses correctes</small></div><div class="metric card-panel"><span>Série</span><b id="statStreak">0 j</b><small>Jours consécutifs</small></div><div class="metric card-panel"><span>Cartes matures</span><b id="statMature">0</b><small>Intervalle ≥ 21 jours</small></div></div>
+      <div class="chart-panel card-panel"><div><h2>Activité des 14 derniers jours</h2><p>Nombre de réponses enregistrées</p></div><div class="bar-chart" id="activityChart"></div></div>
+      <div class="chart-panel card-panel"><div><h2>État des cartes</h2><p>Répartition actuelle de la collection</p></div><div class="state-bars" id="stateBars"></div></div>
+    </section>
+  </template>
+
+  <template id="settingsView">
+    <section class="view settings-view"><div class="view-head"><div><p class="kicker">OUSBRAIN</p><h1>Réglages</h1></div></div><div class="settings-list card-panel"><label><span><b>Mode sombre</b><small>Adapter l’interface pour le soir</small></span><input type="checkbox" id="darkMode"></label><label><span><b>Sens de révision</b><small>Direction utilisée pendant les sessions</small></span><select id="directionSetting"><option value="mixed">Mixte</option><option value="front-back">Recto → Verso</option><option value="back-front">Verso → Recto</option></select></label><label><span><b>Objectif quotidien</b><small>Nombre maximal de nouvelles cartes</small></span><input type="number" id="dailyLimit" min="1" max="100"></label><label><span><b>Étapes d’apprentissage</b><small>Délais séparés par des espaces, comme dans Anki</small></span><input type="text" id="learningSteps" placeholder="1m 10m"></label><label><span><b>Intervalle de graduation</b><small>Premier intervalle après la dernière étape</small></span><input type="number" id="graduatingInterval" min="1" max="365"><em>jours</em></label><label><span><b>Intervalle facile</b><small>Graduation directe avec le bouton Facile</small></span><input type="number" id="easyInterval" min="1" max="365"><em>jours</em></label><label><span><b>Anticipation</b><small>Afficher plus tôt les cartes d’apprentissage s’il ne reste rien</small></span><input type="number" id="learnAhead" min="0" max="1440"><em>minutes</em></label><div class="settings-actions"><button class="btn secondary" id="exportDataBtn">Exporter les données</button><button class="btn danger" id="resetDataBtn">Réinitialiser la collection</button></div></div></section>
+  </template>
+
+  <div class="toast" id="toast" role="status"></div>
+  <div class="modal-backdrop hidden" id="modalBackdrop"><div class="modal card-panel"><h2 id="modalTitle">Nouveau paquet</h2><input id="modalInput" placeholder="Nom du paquet"><div class="form-actions"><button class="btn secondary" id="modalCancel">Annuler</button><button class="btn primary" id="modalConfirm">Créer</button></div></div></div>
+  <input type="file" id="fileImport" accept="application/json,.json" hidden>
+  <script src="app.js"></script>
+</body>
+</html>

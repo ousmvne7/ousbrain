@@ -1,0 +1,85 @@
+{
+  "ازر": {
+    "root": "",
+    "examples": [
+      {"surah": 6, "ayah": 74, "terms": ["ءَازَرَ"], "translationTerms": ["Azar"]}
+    ]
+  },
+  "بايع": {
+    "root": "ب ي ع",
+    "examples": [
+      {"surah": 2, "ayah": 275, "terms": ["ٱلۡبَيۡعُ", "ٱلۡبَيۡعَ"], "translationTerms": ["commerce"]},
+      {"surah": 2, "ayah": 282, "terms": ["تَبَايَعۡتُمۡ"], "translationTerms": ["transaction"]}
+    ]
+  },
+  "بيت / بيوت": {
+    "root": "ب ي ت",
+    "examples": [
+      {"surah": 2, "ayah": 125, "terms": ["ٱلۡبَيۡتَ", "بَيۡتِيَ"], "translationTerms": ["Maison"]},
+      {"surah": 3, "ayah": 96, "terms": ["بَيۡتٖ"], "translationTerms": ["Maison"]},
+      {"surah": 2, "ayah": 189, "terms": ["ٱلۡبُيُوتَ"], "translationTerms": ["maisons"]}
+    ]
+  },
+  "رجل / رجال": {
+    "root": "ر ج ل",
+    "examples": [
+      {"surah": 28, "ayah": 20, "terms": ["رَجُلٞ"], "translationTerms": ["homme"]},
+      {"surah": 40, "ayah": 28, "terms": ["رَجُلٞ", "رَجُلًا"], "translationTerms": ["homme"]},
+      {"surah": 2, "ayah": 282, "terms": ["رِجَالِكُمۡ", "رَجُلَيۡنِ", "فَرَجُلٞ"], "translationTerms": ["hommes", "homme"]}
+    ]
+  },
+  "صنم / اصنام": {
+    "root": "ص ن م",
+    "examples": [
+      {"surah": 6, "ayah": 74, "terms": ["أَصۡنَامًا"], "translationTerms": ["idoles"]},
+      {"surah": 14, "ayah": 35, "terms": ["ٱلۡأَصۡنَامَ"], "translationTerms": ["idoles"]},
+      {"surah": 21, "ayah": 57, "terms": ["أَصۡنَٰمَكُم"], "translationTerms": ["idoles"]}
+    ]
+  },
+  "في": {
+    "root": "",
+    "examples": [
+      {"surah": 2, "ayah": 10, "terms": ["فِي"], "translationTerms": ["dans"]},
+      {"surah": 2, "ayah": 15, "terms": ["فِي"], "translationTerms": ["dans"]}
+    ]
+  },
+  "قريه / قري": {
+    "root": "ق ر ي",
+    "examples": [
+      {"surah": 2, "ayah": 58, "terms": ["ٱلۡقَرۡيَةَ"], "translationTerms": ["ville"]},
+      {"surah": 2, "ayah": 259, "terms": ["قَرۡيَةٖ"], "translationTerms": ["village"]},
+      {"surah": 7, "ayah": 4, "terms": ["قَرۡيَةٍ"], "translationTerms": ["cités"]}
+    ]
+  },
+  "كبير": {
+    "root": "ك ب ر",
+    "examples": [
+      {"surah": 2, "ayah": 217, "terms": ["كَبِيرٞ", "أَكۡبَرُ"], "translationTerms": ["grave", "plus grave"]},
+      {"surah": 4, "ayah": 2, "terms": ["كَبِيرٗا"], "translationTerms": ["grand"]},
+      {"surah": 21, "ayah": 58, "terms": ["كَبِيرٗا"], "translationTerms": ["plus grande"]}
+    ]
+  },
+  "كسر / يكسر": {
+    "root": "ك س ر",
+    "examples": []
+  },
+  "مشهور": {
+    "root": "ش ه ر",
+    "examples": []
+  },
+  "ناس": {
+    "root": "",
+    "examples": [
+      {"surah": 2, "ayah": 8, "terms": ["ٱلنَّاسِ"], "translationTerms": ["gens"]},
+      {"surah": 2, "ayah": 21, "terms": ["ٱلنَّاسُ"], "translationTerms": ["hommes"]},
+      {"surah": 114, "ayah": 1, "terms": ["ٱلنَّاسِ"], "translationTerms": ["hommes"]}
+    ]
+  },
+  "و": {
+    "root": "",
+    "examples": [
+      {"surah": 1, "ayah": 5, "terms": ["وَإِيَّاكَ"], "translationTerms": ["et"]},
+      {"surah": 94, "ayah": 4, "terms": ["وَرَفَعۡنَا"], "translationTerms": ["Et"]}
+    ]
+  }
+}

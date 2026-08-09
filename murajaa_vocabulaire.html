@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anki 2.0 — Arabe ↔ Français</title>
+  <style>
+    :root{
+      --bg:#f7f8f5;
+      --surface:#ffffff;
+      --surface-2:#f1f4ee;
+      --text:#182018;
+      --muted:#6f786f;
+      --line:#e2e7df;
+      --green:#246b46;
+      --green-2:#e7f2eb;
+      --amber:#9a6b20;
+      --amber-bg:#fbf3e4;
+      --red:#a74b47;
+      --red-bg:#faecea;
+      --shadow:0 18px 50px rgba(26,42,30,.08);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    button,select{font:inherit}
+    button{cursor:pointer}
+    .page{max-width:1160px;margin:0 auto;padding:28px 20px 64px}
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:20px;padding:10px 0 28px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;font-weight:750}
+    .brand-mark{
+      width:38px;height:38px;border-radius:12px;background:var(--green);
+      color:#fff;display:grid;place-items:center;font-size:18px;
+    }
+    .nav-right{display:flex;align-items:center;gap:10px}
+    .ghost,.primary,.seg button,.action{
+      border:1px solid var(--line);background:var(--surface);color:var(--text);
+      border-radius:14px;padding:11px 15px;transition:.18s ease;
+    }
+    .ghost:hover,.seg button:hover,.action:hover{transform:translateY(-1px);border-color:#cfd8cd}
+    .primary{background:var(--green);color:#fff;border-color:var(--green);font-weight:700}
+    .primary:hover{filter:brightness(.97);transform:translateY(-1px)}
+    .hero{
+      border:1px solid var(--line);background:linear-gradient(135deg,#fff 0%,#f1f6f0 100%);
+      border-radius:32px;padding:48px;display:grid;grid-template-columns:1.1fr .9fr;
+      gap:44px;align-items:center;box-shadow:var(--shadow);
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;
+      background:var(--green-2);color:var(--green);border-radius:999px;
+      font-size:13px;font-weight:700;margin-bottom:20px;
+    }
+    h1{font-size:clamp(34px,5vw,58px);line-height:1.02;letter-spacing:-.035em;margin:0 0 18px}
+    .lead{font-size:18px;line-height:1.65;color:var(--muted);max-width:620px;margin:0}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+    .stats{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .stat{background:rgba(255,255,255,.85);border:1px solid var(--line);border-radius:20px;padding:20px}
+    .stat .label{color:var(--muted);font-size:13px}
+    .stat .value{font-size:34px;font-weight:800;margin-top:6px}
+    .section{margin-top:34px}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:16px}
+    .section-head h2{margin:0;font-size:24px}
+    .section-head p{margin:5px 0 0;color:var(--muted)}
+    .progress-wrap{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:22px}
+    .progress-top{display:flex;justify-content:space-between;gap:12px;margin-bottom:12px}
+    .progress-bar{height:10px;border-radius:999px;background:#e8ece6;overflow:hidden}
+    .progress-fill{height:100%;width:0;background:var(--green);transition:.3s ease}
+    .status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+    .status-card{border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:16px;text-align:left}
+    .status-card strong{display:block;font-size:25px;margin-top:6px}
+    .status-card span{color:var(--muted);font-size:13px}
+    .workspace{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:22px;align-items:start}
+    .review-panel,.memo-panel{background:var(--surface);border:1px solid var(--line);border-radius:26px}
+    .review-panel{padding:22px}
+    .toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+    .seg{display:flex;gap:8px;flex-wrap:wrap}
+    .seg button.active{background:var(--green);border-color:var(--green);color:#fff}
+    select{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px;color:var(--text)}
+    .flashcard{
+      width:100%;min-height:390px;border:1px solid var(--line);border-radius:24px;
+      background:linear-gradient(180deg,#fff 0%,#fbfcfa 100%);padding:26px;
+      display:flex;flex-direction:column;justify-content:space-between;text-align:center;
+      transition:.2s ease;box-shadow:0 8px 30px rgba(31,45,34,.04)
+    }
+    .flashcard:hover{border-color:#cdd7ca;transform:translateY(-1px)}
+    .card-meta{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .pill{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:750}
+    .pill.green{background:var(--green-2);color:var(--green)}
+    .pill.review{background:var(--red-bg);color:var(--red)}
+    .pill.learning{background:var(--amber-bg);color:var(--amber)}
+    .pill.mastered{background:var(--green-2);color:var(--green)}
+    .question-wrap{padding:32px 8px}
+    .question{font-size:clamp(36px,7vw,62px);font-weight:800;letter-spacing:-.02em}
+    .question.fr{font-size:clamp(30px,5vw,48px)}
+    .hint{margin-top:14px;color:var(--muted)}
+    .answer{display:none;border-top:1px solid var(--line);padding-top:24px;margin-top:24px}
+    .answer.show{display:block}
+    .answer-label{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:800}
+    .answer-text{font-size:30px;font-weight:800;margin-top:8px}
+    .card-footer{color:var(--muted);font-size:13px}
+    .grading{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+    .grade{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--surface);font-weight:700}
+    .grade.red{color:var(--red);background:var(--red-bg);border-color:#f1d6d2}
+    .grade.amber{color:var(--amber);background:var(--amber-bg);border-color:#efdfbd}
+    .grade.green{color:var(--green);background:var(--green-2);border-color:#cfe4d5}
+    .pager{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+    .memo-panel{padding:20px;position:sticky;top:18px}
+    .memo-title-row{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+    .memo-icon{width:36px;height:36px;border-radius:12px;background:var(--green-2);display:grid;place-items:center}
+    .memo-box{background:var(--surface-2);border-radius:18px;padding:16px;margin-top:12px}
+    .memo-box small{display:block;color:var(--muted);margin-bottom:7px;font-weight:700}
+    .memo-box p{margin:0;line-height:1.55}
+    .words{
+      background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:22px
+    }
+    .word-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+    .word{
+      border:1px solid var(--line);border-radius:16px;padding:15px;background:#fff;
+      display:flex;justify-content:space-between;gap:12px;text-align:left;min-height:86px
+    }
+    .word:hover{border-color:#cbd5c8;background:#fcfdfb}
+    .word-ar{font-size:18px;font-weight:800}
+    .word-fr{margin-top:5px;color:var(--muted);font-size:13px}
+    .word-badge{flex:none;align-self:flex-start}
+    .empty{text-align:center;padding:50px 20px;color:var(--muted)}
+    .tiny{font-size:12px;color:var(--muted)}
+    .kbd{display:inline-flex;min-width:22px;justify-content:center;padding:2px 6px;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;background:var(--surface);font-size:11px;color:var(--muted)}
+    .session-note{margin-top:12px;text-align:center;color:var(--muted);font-size:12px}
+    body.dark{--bg:#111713;--surface:#18201b;--surface-2:#202a23;--text:#edf4ee;--muted:#9eaaa0;--line:#303b33;--green:#55b77c;--green-2:#203d2c;--amber-bg:#3b3020;--red-bg:#3d2423;--shadow:0 18px 50px rgba(0,0,0,.28)}
+    body.dark .hero,body.dark .flashcard{background:linear-gradient(135deg,#18201b,#1d2921)}
+    body.dark .word{background:var(--surface)}
+    @media(max-width:900px){
+      .hero,.workspace{grid-template-columns:1fr}
+      .hero{padding:34px}
+      .memo-panel{position:static}
+      .word-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:620px){
+      .page{padding:18px 14px 40px}
+      .nav-right .ghost{display:none}
+      .hero{padding:26px 20px;border-radius:24px}
+      .stats,.status-grid,.word-grid{grid-template-columns:1fr}
+      .grading{grid-template-columns:1fr 1fr!important}
+      .toolbar{align-items:stretch}
+      .seg{width:100%}.seg button{flex:1}
+      .flashcard{min-height:360px;padding:20px}
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <nav class="nav">
+    <div class="brand">
+      <div class="brand-mark">م</div>
+      <div>Anki <span style="color:var(--muted);font-weight:600">2.0 · Arabe</span></div>
+    </div>
+    <div class="nav-right">
+      <button class="ghost" id="themeToggle" title="Mode sombre">☾</button>
+      <button class="ghost" id="importBtn">Importer</button>
+      <button class="ghost" id="exportBtn">Exporter</button>
+      <button class="ghost" id="resetTop">Réinitialiser</button>
+      <button class="primary" id="navStart">Réviser maintenant</button>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <div class="eyebrow">🧠 Répétition espacée · Session du jour</div>
+      <h1>Moins de cartes.<br>Plus de mémoire.</h1>
+      <p class="lead">Anki 2.0 planifie chaque mot au bon moment. Révise dans les deux sens, note ton rappel et laisse l’algorithme organiser la suite.</p>
+      <div class="hero-actions">
+        <button class="primary" id="heroStart">Commencer la session</button>
+        <button class="ghost" id="shuffleHero">🔀 Mélanger les cartes</button>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="label">À faire aujourd’hui</div><div class="value" id="heroDue">24</div></div>
+      <div class="stat"><div class="label">Maîtrisées</div><div class="value" id="heroMastered">0</div></div>
+      <div class="stat"><div class="label">Série</div><div class="value"><span id="heroStreak">0</span><small style="font-size:14px"> j</small></div></div>
+      <div class="stat"><div class="label">Rétentions</div><div class="value" id="heroPct">0%</div></div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <h2>Progression</h2>
+        <p>Classe chaque carte selon ton niveau réel.</p>
+      </div>
+      <div id="progressLabel">0 / 24 maîtrisés</div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-top">
+        <span class="tiny">Maîtrise globale</span>
+        <strong id="progressPct">0%</strong>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="status-grid">
+        <button class="status-card" data-filter="due"><span>Dues aujourd’hui</span><strong id="countReview">24</strong></button>
+        <button class="status-card" data-filter="learning"><span>En apprentissage</span><strong id="countLearning">0</strong></button>
+        <button class="status-card" data-filter="mastered"><span>Matures</span><strong id="countMastered">0</strong></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="review">
+    <div class="section-head">
+      <div>
+        <h2>Session de révision</h2>
+        <p>Réponds mentalement, retourne la carte, puis évalue-toi.</p>
+      </div>
+      <div class="tiny" id="counter">Carte 1 / 24</div>
+    </div>
+
+    <div class="workspace">
+      <div class="review-panel">
+        <div class="toolbar">
+          <div class="seg">
+            <button class="active" data-mode="ar-fr">AR → FR</button>
+            <button data-mode="fr-ar">FR → AR</button>
+            <button data-mode="mixed">Mixte</button>
+          </div>
+          <select id="filter">
+            <option value="all">Toutes les cartes</option>
+            <option value="due">Dues aujourd’hui</option>
+            <option value="learning">En cours</option>
+            <option value="mastered">Maîtrisées</option>
+          </select>
+        </div>
+
+        <button class="flashcard" id="flashcard">
+          <div class="card-meta">
+            <span class="pill green" id="directionPill">Arabe → Français</span>
+            <span class="pill review" id="statusPill">À revoir</span>
+          </div>
+
+          <div class="question-wrap">
+            <div class="question" id="question" dir="rtl">اِسْم / أَسْمَاء</div>
+            <div class="hint" id="hint">Trouve la traduction avant de retourner la carte.</div>
+            <div class="answer" id="answerBox">
+              <div class="answer-label">Réponse</div>
+              <div class="answer-text" id="answerText">nom(s)</div>
+            </div>
+          </div>
+
+          <div class="card-footer">Clique sur la carte pour afficher la réponse</div>
+        </button>
+
+        <div class="grading" style="grid-template-columns:repeat(4,1fr)">
+          <button class="grade red" data-grade="again"><span class="kbd">1</span> Encore</button>
+          <button class="grade amber" data-grade="hard"><span class="kbd">2</span> Difficile</button>
+          <button class="grade" data-grade="good"><span class="kbd">3</span> Bien</button>
+          <button class="grade green" data-grade="easy"><span class="kbd">4</span> Facile</button>
+        </div>
+        <div class="session-note">Espace : retourner · ←/→ : naviguer · 1–4 : noter</div>
+
+        <div class="pager">
+          <button class="action" id="prev">← Précédente</button>
+          <button class="action" id="next">Suivante →</button>
+        </div>
+      </div>
+
+      <aside class="memo-panel">
+        <div class="memo-title-row">
+          <div class="memo-icon">🧠</div>
+          <div>
+            <strong>Mémo intelligent</strong>
+            <div class="tiny">Liens et associations utiles</div>
+          </div>
+        </div>
+
+        <div class="memo-box">
+          <small>À retenir</small>
+          <p id="memoMain">« Ism » = nom. Retenir ensuite le pluriel أَسْمَاء.</p>
+        </div>
+        <div class="memo-box">
+          <small>Connexion</small>
+          <p id="memoConnection">Singulier / pluriel : اِسْم ↔ أَسْمَاء.</p>
+        </div>
+        <div class="memo-box">
+          <small>Réflexe mémoire</small>
+          <p id="memoTip">Dis : ism = nom, asmāʾ = noms.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section words">
+    <div class="section-head">
+      <div>
+        <h2>Tout le vocabulaire</h2>
+        <p>Clique sur un mot pour le réviser directement.</p>
+      </div>
+      <button class="ghost" id="showAll">Afficher tout</button>
+    </div>
+    <div class="word-grid" id="wordGrid"></div>
+  </section>
+</div>
+
+<input type="file" id="importFile" accept="application/json" hidden>
+
+<script>
+const vocab = [
+ {ar:'اِسْم / أَسْمَاء',fr:'nom(s)',memo:'« Ism » = nom. Retenir ensuite le pluriel أَسْمَاء.',conn:'Singulier / pluriel : اِسْم ↔ أَسْمَاء.',tip:'Dis : ism = nom, asmāʾ = noms.'},
+ {ar:'بَاعَ / يَبِيعُ',fr:'vendre',memo:'Deux formes d’un même verbe : vendre.',conn:'بَاعَ = il a vendu ; يَبِيعُ = il vend.',tip:'Imagine un vendeur qui vend un objet.'},
+ {ar:'جِدًّا',fr:'très, beaucoup',memo:'جِدًّا renforce le sens : très, beaucoup.',conn:'كَبِير جِدًّا = très grand.',tip:'Imagine un curseur poussé au maximum.'},
+ {ar:'سَجَدَ / يَسْجُدُ',fr:'se prosterner',memo:'Même famille que سُجُود : prosternation.',conn:'س ج د → sujūd → se prosterner.',tip:'Le mot sujūd te donne directement le sens.'},
+ {ar:'عَبَدَ / يَعْبُدُ',fr:'adorer',memo:'Même racine que عِبَادَة : adoration.',conn:'ع ب د relie adorer et adoration.',tip:'ʿIbāda → adoration → عَبَدَ.'},
+ {ar:'قَبْلَ',fr:'avant',memo:'قَبْلَ signifie avant.',conn:'Apprends-le avec بَعْدَ = après.',tip:'قَبْلَ ↔ بَعْدَ.'},
+ {ar:'كَانَ / يَكُونُ',fr:'être',memo:'Un des verbes les plus fréquents en arabe.',conn:'كَانَ renvoie souvent à « était » ; يَكُونُ au verbe être au présent/futur selon le contexte.',tip:'Quand tu vois كَانَ, pense « être ».'},
+ {ar:'كَثِير',fr:'nombreux',memo:'كَثِير exprime une grande quantité.',conn:'Même idée que « beaucoup » ou « nombreux ».',tip:'Kathīr = beaucoup / nombreux.'},
+ {ar:'لِـ',fr:'pour',memo:'Petite préposition attachée au mot suivant.',conn:'لِـ porte souvent l’idée de « pour » ou « à ».',tip:'Une lettre seulement : لِـ = pour.'},
+ {ar:'مَنْ',fr:'qui',memo:'مَنْ sert à demander « qui ? » pour une personne.',conn:'Question sur une personne → مَنْ.',tip:'مَنْ ؟ = qui ?'},
+ {ar:'هَذَا / هَذِهِ',fr:'ce, cet / cette',memo:'Deux démonstratifs à apprendre ensemble.',conn:'هَذَا masculin ; هَذِهِ féminin.',tip:'Duo : هذا / هذه.'},
+ {ar:'يَوْم / أَيَّام',fr:'jour',memo:'يَوْم = jour ; أَيَّام = jours.',conn:'Singulier / pluriel irrégulier.',tip:'Yawm = jour.'},
+ {ar:'آزَر',fr:'Aazar',memo:'C’est un nom propre.',conn:'Pas de traduction à construire : retiens le son Āzar.',tip:'Lis simplement : Āzar.'},
+ {ar:'بَائِع',fr:'vendeur',memo:'بَائِع vient du même champ lexical que vendre.',conn:'بَاعَ = vendre ; بَائِع = vendeur.',tip:'Le vendeur est celui qui vend.'},
+ {ar:'بَيْت / بُيُوت',fr:'maison(s), demeure(s)',memo:'بَيْت est un mot arabe très fréquent.',conn:'بَيْت = maison ; بُيُوت = maisons.',tip:'Bayt = maison.'},
+ {ar:'رَجُل / رِجَال',fr:'homme(s)',memo:'Apprends directement le couple singulier / pluriel.',conn:'رَجُل = homme ; رِجَال = hommes.',tip:'Rajul / rijāl.'},
+ {ar:'صَنَم / أَصْنَام',fr:'idole(s)',memo:'صَنَم signifie idole.',conn:'صَنَم = idole ; أَصْنَام = idoles.',tip:'Mémorise les deux formes ensemble.'},
+ {ar:'فِي',fr:'dans',memo:'Une des prépositions les plus fréquentes.',conn:'فِي = dans / en selon la phrase.',tip:'Fī = dans.'},
+ {ar:'قَرْيَة / قُرًى',fr:'village(s)',memo:'قَرْيَة signifie village.',conn:'قَرْيَة = village ; قُرًى = villages.',tip:'Qarya = village.'},
+ {ar:'كَبِير',fr:'grand',memo:'كَبِير signifie grand.',conn:'Apprends-le avec صَغِير = petit.',tip:'كَبِير ↔ صَغِير.'},
+ {ar:'كَسَرَ / يَكْسِرُ',fr:'casser',memo:'Visualise immédiatement quelque chose qui se brise.',conn:'Passé / présent du même verbe.',tip:'Objet cassé → كَسَرَ.'},
+ {ar:'مَشْهُور',fr:'connu, célèbre',memo:'مَشْهُور décrit quelqu’un ou quelque chose de connu.',conn:'Une célébrité est مَشْهُور.',tip:'Mashhūr = célèbre.'},
+ {ar:'نَاس',fr:'gens',memo:'نَاس désigne les gens, les personnes.',conn:'النَّاس = les gens.',tip:'An-nās = les gens.'},
+ {ar:'وَ',fr:'et, alors que',memo:'وَ est une conjonction attachée au mot suivant.',conn:'Son sens le plus fréquent est simplement « et ».',tip:'وَ = et.'}
+];
+
+const DAY=86400000, today=()=>new Date().setHours(0,0,0,0);
+const freshCard=()=>({due:today(),interval:0,ease:2.5,reps:0,lapses:0,last:null});
+const saved = JSON.parse(localStorage.getItem('anki_arabe_v2') || 'null');
+const state = saved || {cards:vocab.map(freshCard),mode:'mixed',filter:'due',order:vocab.map((_,i)=>i),cursor:0,revealed:false,direction:'ar-fr',history:[],streak:0,lastStudy:null,dark:false};
+if(!state.cards || state.cards.length!==vocab.length) state.cards=vocab.map(freshCard);
+state.history=state.history||[]; state.streak=state.streak||0;
+
+const $ = id => document.getElementById(id);
+$('filter').value=state.filter;
+document.body.classList.toggle('dark',!!state.dark);
+
+function save(){ localStorage.setItem('anki_arabe_v2', JSON.stringify(state)); }
+function cardStatus(c){ return c.reps===0?'review':c.interval>=21?'mastered':'learning'; }
+function counts(){
+  return {
+    review: state.cards.filter(c=>c.due<=Date.now()).length,
+    learning: state.cards.filter(c=>cardStatus(c)==='learning').length,
+    mastered: state.cards.filter(c=>cardStatus(c)==='mastered').length
+  };
+}
+function filtered(){
+  return state.order.filter(i => state.filter==='all' || (state.filter==='due' ? state.cards[i].due<=Date.now() : cardStatus(state.cards[i])===state.filter));
+}
+function current(){
+  const a=filtered();
+  if(!a.length) return null;
+  if(state.cursor>=a.length) state.cursor=0;
+  return a[state.cursor];
+}
+function pickDirection(){
+  return state.mode==='mixed' ? (Math.random()<.5?'ar-fr':'fr-ar') : state.mode;
+}
+function statusLabel(s){
+  return s==='mastered'?'Maîtrisé':s==='learning'?'En cours':'À revoir';
+}
+function updateStats(){
+  const c=counts();
+  const attempts=state.history.length, successes=state.history.filter(x=>x.grade!=='again').length;
+  const pct=attempts?Math.round(successes/attempts*100):0;
+  $('heroDue').textContent=c.review;
+  $('heroMastered').textContent=c.mastered;
+  $('heroStreak').textContent=state.streak;
+  $('heroPct').textContent=pct+'%';
+  $('countReview').textContent=c.review;
+  $('countLearning').textContent=c.learning;
+  $('countMastered').textContent=c.mastered;
+  $('progressLabel').textContent=`${c.mastered} / ${vocab.length} cartes matures`;
+  $('progressPct').textContent=pct+'%';
+  $('progressFill').style.width=Math.round(c.mastered/vocab.length*100)+'%';
+}
+function renderCard(newDirection=true){
+  const a=filtered(), idx=current();
+  state.revealed=false;
+  $('answerBox').classList.remove('show');
+  if(idx===null){
+    $('question').textContent='Aucune carte dans cette catégorie';
+    $('question').className='question fr';
+    $('question').dir='ltr';
+    $('answerText').textContent='';
+    $('counter').textContent='0 carte';
+    $('statusPill').textContent='—';
+    $('memoMain').textContent='Toutes les cartes de cette catégorie ont été déplacées.';
+    $('memoConnection').textContent='Choisis une autre catégorie pour continuer.';
+    $('memoTip').textContent='';
+    return;
+  }
+  if(newDirection) state.direction=pickDirection();
+  const v=vocab[idx];
+  $('counter').textContent=`Carte ${state.cursor+1} / ${a.length}`;
+  const s=cardStatus(state.cards[idx]);
+  $('statusPill').textContent=statusLabel(s);
+  $('statusPill').className=`pill ${s}`;
+  $('memoMain').textContent=v.memo;
+  $('memoConnection').textContent=v.conn;
+  $('memoTip').textContent=v.tip;
+
+  if(state.direction==='ar-fr'){
+    $('directionPill').textContent='Arabe → Français';
+    $('question').textContent=v.ar;
+    $('question').className='question';
+    $('question').dir='rtl';
+    $('answerText').textContent=v.fr;
+    $('answerText').dir='ltr';
+  } else {
+    $('directionPill').textContent='Français → Arabe';
+    $('question').textContent=v.fr;
+    $('question').className='question fr';
+    $('question').dir='ltr';
+    $('answerText').textContent=v.ar;
+    $('answerText').dir='rtl';
+  }
+  $('hint').textContent='Trouve la traduction avant de retourner la carte.';
+  save();
+}
+function renderWords(){
+  const root=$('wordGrid');
+  root.innerHTML='';
+  vocab.forEach((v,i)=>{
+    const b=document.createElement('button');
+    b.className='word';
+    const status=cardStatus(state.cards[i]);
+    b.innerHTML=`
+      <div>
+        <div class="word-ar" dir="rtl">${v.ar}</div>
+        <div class="word-fr">${v.fr}</div>
+      </div>
+      <span class="pill ${status} word-badge">${status==='mastered'?'✓':status==='learning'?'◐':'↩'}</span>
+    `;
+    b.addEventListener('click',()=>{
+      state.filter='all';
+      $('filter').value='all';
+      state.cursor=state.order.indexOf(i);
+      renderCard(true);
+      document.getElementById('review').scrollIntoView({behavior:'smooth'});
+    });
+    root.appendChild(b);
+  });
+}
+function refresh(){
+  updateStats();
+  renderCard(true);
+  renderWords();
+  document.querySelectorAll('.seg button').forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.mode===state.mode);
+  });
+}
+function grade(s){
+  const idx=current();
+  if(idx===null || !state.revealed) return;
+  const c=state.cards[idx], now=Date.now();
+  c.reps++;
+  if(s==='again'){ c.lapses++; c.interval=0; c.ease=Math.max(1.3,c.ease-.2); c.due=now+10*60000; }
+  if(s==='hard'){ c.interval=Math.max(1,Math.round((c.interval||1)*1.2)); c.ease=Math.max(1.3,c.ease-.15); c.due=today()+c.interval*DAY; }
+  if(s==='good'){ c.interval=c.interval<1?1:Math.max(2,Math.round(c.interval*c.ease)); c.due=today()+c.interval*DAY; }
+  if(s==='easy'){ c.interval=c.interval<1?4:Math.max(4,Math.round(c.interval*c.ease*1.3)); c.ease+=.15; c.due=today()+c.interval*DAY; }
+  c.last=now; state.history.push({at:now,card:idx,grade:s});
+  const d=new Date().toISOString().slice(0,10), yesterday=new Date(Date.now()-DAY).toISOString().slice(0,10);
+  if(state.lastStudy!==d){ state.streak=state.lastStudy===yesterday?state.streak+1:1; state.lastStudy=d; }
+  const a=filtered();
+  if(state.cursor>=a.length) state.cursor=0;
+  save();
+  updateStats();
+  renderWords();
+  renderCard(true);
+}
+function shuffle(){
+  for(let i=state.order.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [state.order[i],state.order[j]]=[state.order[j],state.order[i]];
+  }
+  state.cursor=0; save(); renderWords(); renderCard(true);
+}
+function resetAll(){
+  if(!confirm('Réinitialiser toute la progression ?')) return;
+  state.cards=vocab.map(freshCard); state.history=[]; state.streak=0; state.lastStudy=null;
+  state.mode='mixed'; state.filter='due';
+  state.order=vocab.map((_,i)=>i); state.cursor=0;
+  $('filter').value='due';
+  save(); refresh();
+}
+
+$('flashcard').addEventListener('click',()=>{
+  if(current()===null) return;
+  state.revealed=!state.revealed;
+  $('answerBox').classList.toggle('show',state.revealed);
+  $('hint').textContent=state.revealed?'Évalue maintenant ton niveau sur ce mot.':'Trouve la traduction avant de retourner la carte.';
+});
+document.querySelectorAll('.seg button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    state.mode=btn.dataset.mode;
+    state.cursor=0; save(); refresh();
+  });
+});
+$('filter').addEventListener('change',e=>{
+  state.filter=e.target.value; state.cursor=0; save(); renderCard(true);
+});
+document.querySelectorAll('.grade').forEach(btn=>{
+  btn.addEventListener('click',()=>grade(btn.dataset.grade));
+});
+$('next').addEventListener('click',()=>{
+  const a=filtered(); if(!a.length) return;
+  state.cursor=(state.cursor+1)%a.length; renderCard(true);
+});
+$('prev').addEventListener('click',()=>{
+  const a=filtered(); if(!a.length) return;
+  state.cursor=(state.cursor-1+a.length)%a.length; renderCard(true);
+});
+document.querySelectorAll('.status-card').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    state.filter=btn.dataset.filter;
+    $('filter').value=state.filter;
+    state.cursor=0; save(); renderCard(true);
+    document.getElementById('review').scrollIntoView({behavior:'smooth'});
+  });
+});
+$('showAll').addEventListener('click',()=>{
+  state.filter='all'; $('filter').value='all'; state.cursor=0; save(); renderCard(true);
+});
+$('heroStart').addEventListener('click',()=>document.getElementById('review').scrollIntoView({behavior:'smooth'}));
+$('navStart').addEventListener('click',()=>document.getElementById('review').scrollIntoView({behavior:'smooth'}));
+$('shuffleHero').addEventListener('click',shuffle);
+$('resetTop').addEventListener('click',resetAll);
+
+$('themeToggle').addEventListener('click',()=>{
+  state.dark=!state.dark; document.body.classList.toggle('dark',state.dark); save();
+});
+$('exportBtn').addEventListener('click',()=>{
+  const blob=new Blob([JSON.stringify({version:2,exportedAt:new Date().toISOString(),state},null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='anki-arabe-progression.json'; a.click(); URL.revokeObjectURL(a.href);
+});
+$('importBtn').addEventListener('click',()=>$('importFile').click());
+$('importFile').addEventListener('change',async e=>{
+  try{
+    const data=JSON.parse(await e.target.files[0].text());
+    if(!data.state || !Array.isArray(data.state.cards) || data.state.cards.length!==vocab.length) throw new Error();
+    Object.assign(state,data.state); save(); location.reload();
+  }catch{ alert('Fichier de progression invalide.'); }
+});
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('select,input')) return;
+  if(e.code==='Space'){e.preventDefault();$('flashcard').click();}
+  if(e.key==='ArrowRight') $('next').click();
+  if(e.key==='ArrowLeft') $('prev').click();
+  const grades={1:'again',2:'hard',3:'good',4:'easy'};
+  if(grades[e.key]) document.querySelector(`[data-grade="${grades[e.key]}"]`).click();
+});
+
+refresh();
+</script>
+</body>
+</html>
