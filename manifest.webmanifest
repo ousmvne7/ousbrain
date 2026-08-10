@@ -1,0 +1,20 @@
+{
+  "name": "OusBrain — Arabe & Coran",
+  "short_name": "OusBrain",
+  "description": "Mémorisation du vocabulaire arabe avec répétition espacée et exemples coraniques.",
+  "lang": "fr",
+  "start_url": "./index.html#home",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f5f6f8",
+  "theme_color": "#2784d8",
+  "icons": [
+    {
+      "src": "assets/ousbrain-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

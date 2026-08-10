@@ -3,7 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2784d8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="OusBrain">
   <title>OusBrain — Arabe &amp; Coran</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/ousbrain-icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/ousbrain-icon.svg">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -21,10 +28,11 @@
       <div class="top-actions">
         <button class="streak-pill" data-route="stats" aria-label="Voir la série quotidienne">🔥 <span id="sidebarStreak">0</span> j</button>
         <button class="icon-btn" id="topThemeToggle" aria-label="Changer de thème">☾</button>
+        <button class="icon-btn" id="logoutBtn" aria-label="Se déconnecter" title="Se déconnecter">↪</button>
       </div>
     </header>
 
-    <header class="mobile-header"><button class="mobile-brand" data-route="home"><span>★</span><b>OusBrain</b><small>Arabe &amp; Coran</small></button><button class="icon-btn" data-route="settings">⚙</button></header>
+    <header class="mobile-header"><button class="mobile-brand" data-route="home"><span>★</span><b>OusBrain</b><small>Arabe &amp; Coran</small></button><span><button class="icon-btn" data-route="settings">⚙</button><button class="icon-btn" id="mobileLogoutBtn" aria-label="Se déconnecter">↪</button></span></header>
 
     <main id="app" tabindex="-1"></main>
 
@@ -42,7 +50,7 @@
       <section class="dash-panel home-decks"><header><h2>Vos paquets</h2><button data-route="decks">Voir tous les paquets ›</button></header><div class="home-deck-head"><span>PAQUET</span><span>NOUVELLES</span><span>APPRENTISSAGE</span><span>À RÉVISER</span><span></span></div><div id="homeDeckRows"></div><footer><button id="homeNewDeckBtn">＋ Créer un nouveau paquet</button></footer></section>
       <div class="dashboard-grid"><section class="dash-panel activity-panel"><header><h2>Activité récente</h2><button data-route="stats">Voir tout</button></header><div id="homeActivity"></div></section><section class="dash-panel mini-stats"><header><h2>Statistiques</h2><select id="homeStatsRange"><option>7 derniers jours</option></select></header><div class="mini-stat-values"><div><b id="homeReviews">0</b><span>Cartes étudiées</span></div><div><b id="homeRetention">—</b><span>Taux de réussite</span></div><div><b id="homeStudyTime">0 min</b><span>Temps moyen</span></div></div><div class="mini-chart" id="homeChart"></div></section></div>
       <div class="dashboard-grid lower"><section class="dash-panel resume-panel"><header><h2>Reprendre rapidement</h2></header><div id="resumeCard"></div></section><section class="dash-panel quick-panel"><header><h2>Actions rapides</h2></header><div><button data-route="add"><span class="blue">＋</span>Ajouter une carte</button><button data-route="browse"><span class="green">⌕</span>Parcourir les cartes</button><button id="homeImportBtn"><span class="violet">⇧</span>Importer</button><button id="homeExportBtn"><span class="orange">⇩</span>Exporter</button></div></section></div>
-      <p class="local-note">◈ Vos données sont enregistrées localement dans votre navigateur.</p>
+      <p class="local-note">◈ Vos données sont enregistrées localement et synchronisées avec votre compte.</p>
     </section>
   </template>
 
@@ -165,8 +173,29 @@
   </template>
 
   <div class="toast" id="toast" role="status"></div>
+  <aside class="update-banner hidden" id="updateBanner" role="status">
+    <span><b>Nouvelle version disponible</b><small>La mise à jour est prête.</small></span>
+    <button class="btn primary" id="applyUpdateBtn" type="button">Mettre à jour</button>
+  </aside>
   <div class="modal-backdrop hidden" id="modalBackdrop"><div class="modal card-panel"><h2 id="modalTitle">Nouveau paquet</h2><input id="modalInput" placeholder="Nom du paquet"><div class="form-actions"><button class="btn secondary" id="modalCancel">Annuler</button><button class="btn primary" id="modalConfirm">Créer</button></div></div></div>
   <input type="file" id="fileImport" accept="application/json,.json" hidden>
+  <div class="auth-gate" id="authGate">
+    <section class="auth-card card-panel">
+      <div class="auth-brand"><span>★</span><div><h1>OusBrain</h1><p>Arabe &amp; Coran</p></div></div>
+      <h2>Connexion</h2>
+      <p>Retrouvez votre collection et votre progression sur tous vos appareils.</p>
+      <form id="authForm">
+        <label for="authEmail">Adresse email</label>
+        <input id="authEmail" type="email" autocomplete="username" required>
+        <label for="authPassword">Mot de passe</label>
+        <input id="authPassword" type="password" autocomplete="current-password" required>
+        <button class="btn primary" id="authSubmit" type="submit">Se connecter</button>
+      </form>
+      <p class="auth-message" id="authMessage" role="status"></p>
+      <small>Compte personnel sécurisé · aucune inscription publique</small>
+    </section>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="app.js"></script>
 </body>
 </html>
