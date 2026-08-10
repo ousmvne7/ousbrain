@@ -1,4 +1,4 @@
-const CACHE_NAME='ousbrain-v1';
+const CACHE_NAME='ousbrain-v2';
 const APP_SHELL=[
   './',
   './index.html',
