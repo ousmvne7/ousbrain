@@ -103,6 +103,10 @@
         <button class="back-link" id="endSessionBtn">Fermer</button>
         <div class="review-progress"><span id="reviewDeckName"></span><small id="reviewSessionCounts" aria-live="polite"></small></div>
         <div class="review-counts"><span class="new-count" id="sessionNew" title="Nouvelles cartes">0</span><span class="learn-count" id="sessionLearn" title="En cours">0</span><span class="review-count" id="sessionReview" title="À réviser">0</span></div>
+        <div class="review-session-meter" aria-label="Progression de la session">
+          <span><i id="reviewProgressBar"></i></span>
+          <b id="reviewProgressLabel">0 / 0</b>
+        </div>
       </div>
       <article class="study-card" id="studyCard">
         <div class="card-tag" id="cardDirection"></div>
@@ -111,6 +115,7 @@
             <p class="prompt-label" id="reviewFrontLabel">À retrouver</p>
             <div class="card-question" id="cardQuestion"></div>
           </section>
+          <p class="reveal-hint"><i data-lucide="hand-pointer"></i>Touchez la carte pour révéler</p>
           <div class="card-answer hidden" id="cardAnswer">
             <section class="language-card" aria-labelledby="reviewBackLabel">
               <p class="prompt-label" id="reviewBackLabel">Traduction</p><div id="cardAnswerText"></div>
@@ -130,7 +135,7 @@
         </div>
       </article>
       <div class="review-controls">
-        <button class="show-answer" id="showAnswerBtn">Afficher la réponse <kbd>Espace</kbd></button>
+        <button class="show-answer" id="showAnswerBtn"><i data-lucide="eye"></i><span>Afficher la réponse</span><kbd>Espace</kbd></button>
         <div class="answer-buttons hidden" id="answerButtons">
           <button data-grade="again" class="again"><span>Encore</span><small id="againInterval">&lt; 1 min</small><kbd>1</kbd></button>
           <button data-grade="hard" class="hard"><span>Difficile</span><small id="hardInterval">6 min</small><kbd>2</kbd></button>
@@ -142,25 +147,38 @@
   </template>
 
   <template id="addView">
-    <section class="view form-view">
-      <div class="view-head"><div><p class="kicker">COLLECTION</p><h1>Ajouter une carte</h1></div></div>
-      <form id="addForm" class="editor card-panel">
-        <div class="form-row"><label>Type de note</label><select><option>Basique (et carte inversée)</option></select></div>
-        <div class="form-row"><label>Paquet</label><select id="addDeckSelect"></select></div>
-        <div class="field"><label for="frontField">Recto</label><textarea id="frontField" dir="auto" required placeholder="Saisissez la question…"></textarea></div>
-        <div class="field"><label for="backField">Verso</label><textarea id="backField" dir="auto" required placeholder="Saisissez la réponse…"></textarea></div>
-        <div class="field"><label for="noteField">Note <span>facultatif</span></label><input id="noteField" placeholder="Astuce, exemple ou moyen mnémotechnique"></div>
-        <div class="form-actions"><button type="button" class="btn secondary" id="clearFormBtn">Effacer</button><button class="btn primary">Ajouter</button></div>
+    <section class="view form-view add-card-view">
+      <div class="view-head add-view-head"><div><p class="kicker">NOUVELLE CARTE</p><h1>Créer une carte</h1><p>Préparez les deux faces, puis vérifiez-les avant l’ajout.</p></div></div>
+      <form id="addForm" class="editor card-panel add-composer">
+        <div class="add-deck-row"><span class="add-deck-icon"><i data-lucide="layers-3"></i></span><label for="addDeckSelect"><strong>Paquet</strong><small>Choisissez où ranger cette carte</small></label><select id="addDeckSelect"></select></div>
+        <div class="card-faces">
+          <section class="card-face card-face-front">
+            <header><span>1</span><label for="frontField"><strong>Recto</strong><small>Ce que vous voulez retrouver</small></label></header>
+            <textarea id="frontField" dir="auto" required placeholder="Mot ou expression à mémoriser"></textarea>
+          </section>
+          <div class="face-connector" aria-hidden="true"><i data-lucide="arrow-down"></i></div>
+          <section class="card-face card-face-back">
+            <header><span>2</span><label for="backField"><strong>Verso</strong><small>La réponse à mémoriser</small></label></header>
+            <textarea id="backField" dir="auto" required placeholder="Traduction ou réponse"></textarea>
+          </section>
+        </div>
+        <details class="add-note"><summary><span><strong>Ajouter une note</strong><small>Facultatif</small></span><i data-lucide="chevron-down"></i></summary><label class="sr-only" for="noteField">Note facultative</label><input id="noteField" placeholder="Astuce, exemple ou moyen mnémotechnique"></details>
+        <div class="form-actions"><button type="button" class="btn secondary icon-label" id="clearFormBtn"><i data-lucide="rotate-ccw"></i>Effacer</button><button class="btn primary icon-label"><i data-lucide="eye"></i>Prévisualiser</button></div>
       </form>
     </section>
   </template>
 
   <template id="browseView">
     <section class="browse-view">
-      <aside class="browser-sidebar"><h2>Parcourir</h2><button class="side-item active icon-label" data-filter="all"><i data-lucide="library"></i>Toutes les cartes <span id="allCardCount"></span></button><p>PAQUETS</p><div id="browseDecks"></div></aside>
+      <aside class="browser-sidebar"><header><p class="kicker">COLLECTION</p><h2>Bibliothèque</h2><small id="browseSidebarSummary"></small></header><button class="side-item active icon-label" data-filter="all"><i data-lucide="library"></i>Toutes les cartes <span id="allCardCount"></span></button><p>PAQUETS</p><div id="browseDecks"></div></aside>
       <div class="browser-main">
-        <div class="browser-toolbar"><input id="searchCards" type="search" placeholder="Rechercher dans les cartes"><button class="btn primary icon-label" data-route="add"><i data-lucide="plus"></i>Ajouter</button></div>
-        <div class="browser-content"><div class="cards-list"><div class="list-head"><span>Question</span><span>Réponse</span><span>Échéance</span></div><div id="cardRows"></div></div><div class="empty-selection" id="emptySelection"><i data-lucide="notebook-tabs"></i><p>Sélectionnez une carte pour la modifier</p></div><form class="card-editor hidden" id="cardEditor"><div class="field"><label>Recto</label><textarea id="editFront" dir="auto"></textarea></div><div class="field"><label>Verso</label><textarea id="editBack" dir="auto"></textarea></div><div class="field"><label>Note</label><input id="editNote"></div><div class="form-actions"><button type="button" class="btn danger" id="deleteCardBtn">Supprimer</button><button class="btn primary">Enregistrer</button></div></form></div>
+        <header class="browse-mobile-head"><div><p class="kicker">COLLECTION</p><h1>Bibliothèque</h1><small id="browseMobileSummary"></small></div><button class="btn primary icon-label" data-route="add"><i data-lucide="plus"></i>Ajouter</button></header>
+        <div class="browse-deck-picker" id="browseDeckPicker">
+          <span class="browse-deck-picker-icon"><i data-lucide="layers-3"></i></span>
+          <div class="browse-deck-picker-field"><label for="browseDeckSelect">Paquet</label><select id="browseDeckSelect" aria-label="Choisir le paquet à afficher"></select></div>
+        </div>
+        <div class="browser-toolbar"><i class="browser-search-icon" data-lucide="search"></i><input id="searchCards" type="search" placeholder="Rechercher dans les cartes"><button class="btn primary icon-label" data-route="add"><i data-lucide="plus"></i>Ajouter</button></div>
+        <div class="browser-content"><div class="cards-list"><div class="list-head"><span>Recto</span><span>Verso</span><span>Prochaine révision</span></div><div id="cardRows"></div></div><div class="empty-selection" id="emptySelection"><i data-lucide="notebook-tabs"></i><p>Sélectionnez une carte pour la modifier</p></div><div class="card-editor-backdrop hidden" id="cardEditorBackdrop"></div><form class="card-editor hidden" id="cardEditor"><header class="card-editor-head"><div><small>CARTE</small><h2>Modifier la carte</h2></div><button type="button" id="closeCardEditorBtn" aria-label="Fermer l’éditeur"><i data-lucide="x"></i></button></header><div class="field"><label>Recto</label><textarea id="editFront" dir="auto"></textarea></div><div class="field"><label>Verso</label><textarea id="editBack" dir="auto"></textarea></div><div class="field"><label>Note</label><input id="editNote"></div><div class="form-actions"><button type="button" class="btn danger" id="deleteCardBtn">Supprimer</button><button class="btn primary">Enregistrer</button></div></form></div>
       </div>
     </section>
   </template>
