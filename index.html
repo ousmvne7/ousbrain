@@ -3,20 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#2784d8">
+  <meta name="theme-color" content="#087f5b">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="OusBrain">
   <title>OusBrain — Arabe &amp; Coran</title>
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="assets/ousbrain-icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="assets/ousbrain-icon.svg">
+  <link rel="icon" href="assets/ousbrain-brand.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/ousbrain-brand.png">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="brand.css">
 </head>
 <body>
   <div class="app-shell">
     <header class="topbar">
-      <button class="brand" data-route="home" aria-label="Accueil OusBrain"><i class="brand-star" data-lucide="brain"></i><span>OusBrain</span><b>Arabe &amp; Coran</b></button>
+      <button class="brand" data-route="home" aria-label="Accueil OusBrain"><img class="brand-logo" src="assets/ousbrain-brand.png" alt="" width="46" height="46"><span>OusBrain</span><b>Arabe &amp; Coran</b></button>
       <nav class="main-nav" aria-label="Navigation principale">
         <button data-route="home" class="nav-item active">Accueil</button>
         <button data-route="decks" class="nav-item">Paquets</button>
@@ -32,7 +33,7 @@
       </div>
     </header>
 
-    <header class="mobile-header"><button class="mobile-brand" data-route="home"><i data-lucide="brain"></i><b>OusBrain</b></button><span><button class="icon-btn" data-route="settings" aria-label="Réglages"><i data-lucide="settings"></i></button><button class="icon-btn" id="mobileLogoutBtn" aria-label="Se déconnecter"><i data-lucide="log-out"></i></button></span></header>
+    <header class="mobile-header"><button class="mobile-brand" data-route="home"><img class="brand-logo" src="assets/ousbrain-brand.png" alt="" width="40" height="40"><b>OusBrain</b></button><span><button class="icon-btn" data-route="settings" aria-label="Réglages"><i data-lucide="settings"></i></button><button class="icon-btn" id="mobileLogoutBtn" aria-label="Se déconnecter"><i data-lucide="log-out"></i></button></span></header>
 
     <main id="app" tabindex="-1"></main>
 
@@ -99,17 +100,22 @@
   <template id="reviewView">
     <section class="review-view">
       <div class="review-top">
-        <button class="back-link" id="endSessionBtn">× Terminer</button>
-        <div class="review-progress"><span id="reviewDeckName"></span><div><i id="reviewProgressFill"></i></div></div>
-        <div class="review-counts"><span class="new-count" id="sessionNew">0</span><span class="learn-count" id="sessionLearn">0</span><span class="review-count" id="sessionReview">0</span></div>
+        <button class="back-link" id="endSessionBtn">Fermer</button>
+        <div class="review-progress"><span id="reviewDeckName"></span><small id="reviewSessionCounts" aria-live="polite"></small></div>
+        <div class="review-counts"><span class="new-count" id="sessionNew" title="Nouvelles cartes">0</span><span class="learn-count" id="sessionLearn" title="En cours">0</span><span class="review-count" id="sessionReview" title="À réviser">0</span></div>
       </div>
       <article class="study-card" id="studyCard">
         <div class="card-tag" id="cardDirection"></div>
         <div class="card-content">
-          <p class="prompt-label">QUESTION</p>
-          <div class="card-question" id="cardQuestion"></div>
+          <section class="language-card" aria-labelledby="reviewFrontLabel">
+            <p class="prompt-label" id="reviewFrontLabel">À retrouver</p>
+            <div class="card-question" id="cardQuestion"></div>
+          </section>
           <div class="card-answer hidden" id="cardAnswer">
-            <hr><p class="prompt-label">RÉPONSE</p><div id="cardAnswerText"></div><p class="card-note" id="cardNote"></p>
+            <section class="language-card" aria-labelledby="reviewBackLabel">
+              <p class="prompt-label" id="reviewBackLabel">Traduction</p><div id="cardAnswerText"></div>
+            </section>
+            <p class="card-note" id="cardNote"></p>
             <section class="quran-example hidden" id="quranExample">
               <button type="button" class="quran-example-toggle icon-label" id="quranExampleToggle"><i data-lucide="book-open"></i>Voir un exemple dans le Coran <i data-lucide="chevron-down"></i></button>
               <div class="quran-example-panel hidden" id="quranExamplePanel">
@@ -169,7 +175,7 @@
   </template>
 
   <template id="settingsView">
-    <section class="view settings-view"><div class="view-head"><div><p class="kicker">OUSBRAIN</p><h1>Réglages</h1></div></div><div class="settings-list card-panel"><label><span><b>Mode sombre</b><small>Adapter l’interface pour le soir</small></span><input type="checkbox" id="darkMode"></label><label><span><b>Sens de révision</b><small>Direction utilisée pendant les sessions</small></span><select id="directionSetting"><option value="mixed">Mixte</option><option value="front-back">Recto → Verso</option><option value="back-front">Verso → Recto</option></select></label><label><span><b>Objectif quotidien</b><small>Nombre maximal de nouvelles cartes</small></span><input type="number" id="dailyLimit" min="1" max="100"></label><label><span><b>Étapes d’apprentissage</b><small>Délais séparés par des espaces, comme dans Anki</small></span><input type="text" id="learningSteps" placeholder="1m 10m"></label><label><span><b>Intervalle de graduation</b><small>Premier intervalle après la dernière étape</small></span><input type="number" id="graduatingInterval" min="1" max="365"><em>jours</em></label><label><span><b>Intervalle facile</b><small>Graduation directe avec le bouton Facile</small></span><input type="number" id="easyInterval" min="1" max="365"><em>jours</em></label><label><span><b>Anticipation</b><small>Afficher plus tôt les cartes d’apprentissage s’il ne reste rien</small></span><input type="number" id="learnAhead" min="0" max="1440"><em>minutes</em></label><div class="settings-actions"><button class="btn secondary" id="exportDataBtn">Exporter les données</button><button class="btn danger" id="resetDataBtn">Réinitialiser la collection</button></div></div></section>
+    <section class="view settings-view"><div class="view-head"><div><p class="kicker">OUSBRAIN</p><h1>Réglages</h1></div></div><div class="settings-list card-panel"><label><span><b>Mode sombre</b><small>Adapter l’interface pour le soir</small></span><input type="checkbox" id="darkMode"></label><label><span><b>Sens de révision</b><small>Direction utilisée pendant les sessions</small></span><select id="directionSetting"><option value="mixed">Mixte</option><option value="front-back">Recto → Verso</option><option value="back-front">Verso → Recto</option></select></label><label><span><b>Objectif quotidien</b><small>Nombre maximal de nouvelles cartes</small></span><input type="number" id="dailyLimit" min="1" max="100"></label><label><span><b>Étapes d’apprentissage</b><small>Délais séparés par des espaces, comme dans Anki</small></span><input type="text" id="learningSteps" placeholder="1m 10m"></label><label><span><b>Intervalle de graduation</b><small>Premier intervalle après la dernière étape</small></span><input type="number" id="graduatingInterval" min="1" max="365"><em>jours</em></label><label><span><b>Intervalle facile</b><small>Graduation directe avec le bouton Facile</small></span><input type="number" id="easyInterval" min="1" max="365"><em>jours</em></label><label><span><b>Anticipation</b><small>Afficher plus tôt les cartes d’apprentissage s’il ne reste rien</small></span><input type="number" id="learnAhead" min="0" max="1440"><em>minutes</em></label><div class="settings-actions"><button class="btn secondary" id="resetProgressBtn">Réinitialiser la progression</button><button class="btn secondary" id="exportDataBtn">Exporter les données</button><button class="btn danger" id="resetDataBtn">Réinitialiser la collection</button></div></div></section>
   </template>
 
   <div class="toast" id="toast" role="status"></div>
@@ -197,6 +203,7 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="assets/ts-fsrs.umd.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

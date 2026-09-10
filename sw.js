@@ -1,8 +1,10 @@
-const CACHE_NAME='ousbrain-v2';
+const CACHE_NAME='ousbrain-brand-v3';
 const APP_SHELL=[
   './',
   './index.html',
   './styles.css',
+  './brand.css',
+  './assets/ousbrain-brand.png',
   './app.js',
   './manifest.webmanifest',
   './assets/ousbrain-icon.svg',
@@ -32,8 +34,9 @@ self.addEventListener('fetch',event=>{
   const request=event.request;
   if(request.method!=='GET')return;
   const url=new URL(request.url);
+  if(url.pathname.includes('/private-lessons/'))return;
   if(url.origin!==self.location.origin)return;
-  const networkFirst=request.mode==='navigate'||/\/(?:index\.html|app\.js|styles\.css|manifest\.webmanifest)$/.test(url.pathname);
+  const networkFirst=request.mode==='navigate'||/\/(?:index\.html|app\.js|styles\.css|brand\.css|manifest\.webmanifest)$/.test(url.pathname);
   if(networkFirst){
     event.respondWith(fetch(request).then(response=>{
       const copy=response.clone();

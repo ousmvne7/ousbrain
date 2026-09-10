@@ -1,0 +1,177 @@
+/* OusBrain — white surfaces, charcoal text and emerald accents. */
+:root{--bg:#f8faf9;--panel:#ffffff;--panel2:#f3f5f4;--ink:#252b2a;--muted:#626d69;--line:#e3e8e5;--blue:#087f5b;--blue2:#e8f5ee;--green:#35774e;--orange:#9b681c;--red:#b54747;--shadow:0 6px 24px rgba(25,35,30,.035);--radius:18px;--brand-fill:#087f5b;--brand-text:#ffffff;--focus:#087f5b;color-scheme:light}
+body.dark{--bg:#101d19;--panel:#182923;--panel2:#22372f;--ink:#eef4e9;--muted:#b0c3b6;--line:#354c40;--blue:#8dd7b4;--blue2:#254637;--green:#a2d29f;--orange:#e7be79;--red:#f19696;--shadow:0 8px 28px rgba(0,0,0,.16);--brand-fill:#b4e3c6;--brand-text:#123c2b;--focus:#b4e3c6;color-scheme:dark}
+body{font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,a,input,textarea,select{-webkit-tap-highlight-color:transparent}
+button{touch-action:manipulation}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+h1,h2,h3{color:var(--ink);letter-spacing:-.035em;line-height:1.18}
+.view-head h1,.dashboard-head h1{font-size:clamp(28px,3vw,38px);font-weight:750}
+.kicker,.prompt-label{font-size:12px;letter-spacing:.13em;color:var(--muted)}
+.brand-logo{width:46px;height:46px;object-fit:contain;border-radius:12px;flex-shrink:0}
+.brand,.mobile-brand{gap:8px;letter-spacing:-.035em}
+.brand b{display:none}
+.topbar,.mobile-header,.mobile-nav,.statusbar,body.dark .topbar,body.dark .mobile-header,body.dark .mobile-nav,body.dark .statusbar{background:var(--panel);border-color:var(--line)}
+.main-nav .nav-item{font-size:14px;padding-inline:16px}
+.nav-item.active{background:var(--blue2)}
+.nav-item.active:after{height:2px}
+.icon-btn{min-width:44px;min-height:44px;border-radius:12px}
+.btn,.study-button,.show-answer,.custom-select-trigger{border-radius:12px;min-height:46px;font-size:14px}
+.btn.primary,.study-button,.show-answer,.hero-study,body.dark .hero-study{background:var(--brand-fill);border-color:var(--brand-fill);color:var(--brand-text);box-shadow:none}
+.hero-study:hover,body.dark .hero-study:hover{background:var(--brand-fill);filter:brightness(.95)}
+.btn.secondary{background:var(--panel)}
+.btn.danger,body.dark .btn.danger{background:var(--panel);color:var(--red);border-color:var(--red)}
+.card-panel,.dash-panel,.deck-table,.today-summary>div,.metric,.chart-panel{border-radius:18px;border-color:var(--line);box-shadow:var(--shadow);background:var(--panel)}
+.dashboard-metrics{gap:14px;margin:26px 0}
+.dash-metric,body.dark .dash-metric{position:relative;min-height:120px;border-color:var(--line);border-radius:16px;padding:20px;box-shadow:none}
+.dash-metric.blue,.dash-metric.gold,.dash-metric.green,body.dark .dash-metric.blue,body.dark .dash-metric.gold,body.dark .dash-metric.green{background:var(--panel)}
+.dash-metric.blue{border-top:3px solid var(--blue)}
+.dash-metric.gold{border-top:3px solid var(--orange)}
+.dash-metric.green{border-top:3px solid var(--green)}
+.dash-metric.blue>svg,body.dark .dash-metric.blue>svg{color:var(--blue)}
+.dash-metric.gold>svg,body.dark .dash-metric.gold>svg{color:var(--orange)}
+.dash-metric.green>svg,body.dark .dash-metric.green>svg{color:var(--green)}
+.dash-metric b{font-size:32px;line-height:1.1;font-variant-numeric:tabular-nums}
+.dash-metric strong{font-size:14px}.dash-metric small{font-size:12px}
+.dash-panel>header{padding:18px 22px;min-height:64px}.dash-panel h2{font-size:20px}
+.dashboard-head h1 button,.dashboard-actions p button,.dash-panel header button{color:var(--muted)}
+.home-deck-name i,body.dark .home-deck-name i,.deck-dot,.deck-symbol,.quick-panel .blue,body.dark .quick-panel .blue{background:var(--blue2);color:var(--blue)}
+.home-decks>footer button,body.dark .home-decks>footer button{border-color:var(--line);background:var(--panel);min-height:46px;color:var(--blue)}
+.deck-line:hover,body.dark .deck-line:hover,.card-list-row:hover,.card-list-row.active{background:var(--blue2)}
+.overview-card{padding:36px 28px}.deck-title h1{font-size:clamp(25px,3vw,34px)}
+.overview-actions{gap:12px;flex-wrap:wrap}.overview-actions>button{padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);font-size:14px}
+.editor{padding:28px}.field label,.form-row label{font-size:14px}.field input,.field textarea,.form-row select,.settings-list input,.settings-list select{background:var(--panel);color:var(--ink);border-color:var(--line);border-radius:12px;font-size:16px}
+.field textarea{padding:14px 16px;line-height:1.65}.field{gap:10px;margin-top:20px}
+.custom-select-trigger,.custom-select-option{font-size:16px;min-height:48px}.custom-select-menu{border-radius:14px}
+.settings-list{padding:12px 24px}.settings-list>label{padding:20px 0;gap:24px}.settings-list small{font-size:14px;line-height:1.5}.settings-actions{gap:12px;flex-wrap:wrap}
+.browser-toolbar{min-height:76px;height:auto;padding:14px 20px;gap:12px}.browser-toolbar input{min-width:0;min-height:48px;border-radius:12px;font-size:16px}
+.list-head,.card-list-row{font-size:14px;line-height:1.6}.list-head{font-size:12px;letter-spacing:.05em}.card-list-row{padding-top:16px;padding-bottom:16px}
+.review-view{background:var(--bg)}.review-top{background:var(--panel)}.review-progress{font-size:14px}
+.study-card,body.dark .study-card{box-shadow:none;border-radius:22px;border-color:var(--line);background:var(--panel)}
+.card-tag{background:var(--blue2);color:var(--blue);border-radius:8px;font-size:12px}
+.card-note{font-size:16px;line-height:1.6}.review-controls{background:var(--panel);gap:12px}.answer-buttons{gap:12px}.answer-buttons button{min-height:64px;border-radius:14px;font-size:15px}.answer-buttons small{font-size:13px}
+.quran-dialog,.overview-modal,.modal{border-radius:22px;border-color:var(--line);background:var(--panel)}
+.quran-dialog>header button,.overview-modal>header button{min-width:44px;min-height:44px;border-radius:12px}
+.quran-dialog .quran-example-panel,body.dark .quran-dialog .quran-example-panel{background:transparent}
+.quran-example-panel,body.dark .quran-example-panel{background:var(--panel2);border-color:var(--line)}
+.quran-example-verse mark,body.dark .quran-example-verse mark,.quran-example-translation mark{background:var(--blue2);color:var(--blue)}
+.quran-example-reference{line-height:1.65}.quran-example-translation{font-size:16px;line-height:1.7}
+.quran-audio-player{background:transparent;box-shadow:none;border:0;border-top:1px solid var(--line);border-radius:0;padding-top:12px}.quran-audio-reciter strong,.quran-audio-actions b{font-size:12px}.quran-audio-actions button{width:44px;height:44px;background:var(--brand-fill);color:var(--brand-text)}
+.auth-gate,body.dark .auth-gate{background:var(--bg)}
+@media(min-width:901px){.dashboard-view,.view{padding-top:48px}.dashboard-grid{gap:20px}.topbar{grid-template-columns:200px 1fr 160px}.study-card{margin-block:24px}.review-controls{padding-block:20px}}
+@media(max-width:900px){.mobile-header{padding-inline:16px}.mobile-brand{font-size:21px}.mobile-brand .brand-logo{width:40px;height:40px}.mobile-nav{padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -6px 24px rgba(24,59,51,.035)}.mobile-nav button{font-size:12px;gap:6px;min-width:0}.mobile-nav button.active{color:var(--blue);background:var(--blue2);border-radius:14px}.mobile-nav button>svg{width:24px;height:24px}.dashboard-view,.view{width:calc(100% - 32px)}.dashboard-metrics{gap:10px}.dashboard-head h1{font-size:30px}}
+@media(max-width:600px){.editor{padding:20px}.form-row{grid-template-columns:1fr;gap:8px}.dashboard-metrics{grid-template-columns:1fr}.dash-metric{display:flex;min-height:94px;padding:16px 18px;gap:18px}.dash-metric b{font-size:28px}.dash-panel>header{padding:16px 18px}.overview-card{padding:28px 18px}.overview-actions>button{flex:1 1 auto}.settings-list{padding:6px 18px}.settings-list>label{align-items:flex-start;gap:12px}.settings-actions .btn{flex:1 1 100%}.browser-toolbar{padding:12px 16px;flex-wrap:wrap}.browser-toolbar input{flex:1 1 190px}.study-card:not(:has(.card-answer.hidden)) .card-question,body.dark .study-card:not(:has(.card-answer.hidden)) .card-question{background:var(--panel);border:1px solid var(--line);box-shadow:none}.study-card:not(:has(.card-answer.hidden)) #cardAnswerText,body.dark .study-card:not(:has(.card-answer.hidden)) #cardAnswerText{background:var(--blue2);border:1px solid var(--line);box-shadow:none}.study-card:not(:has(.card-answer.hidden)) .card-question,.study-card:not(:has(.card-answer.hidden)) #cardAnswerText{min-height:140px;padding:20px 16px}.review-progress #reviewSessionCounts{font-size:12px}.review-top{grid-template-columns:64px minmax(0,1fr) 64px}.quran-dialog-backdrop{padding:12px}.quran-dialog{max-height:calc(100dvh - 24px)}.quran-audio-actions button{width:44px;height:44px}.quran-audio-reciter strong,.quran-audio-actions b{font-size:12px}}
+/* Mobile dock: neutral navigation, independent of action/status colors. */
+@media(max-width:900px){
+  body:not([data-route="review"]) .app-shell{padding-bottom:calc(112px + env(safe-area-inset-bottom))}
+  .mobile-nav,body.dark .mobile-nav{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));width:auto;max-width:560px;margin-inline:auto;min-height:78px;padding:5px 4px;border:1px solid var(--line);border-radius:24px;background:var(--panel);box-shadow:0 8px 32px rgba(20,29,25,.12)}
+  .mobile-nav button{position:relative;min-height:66px;min-width:0;padding:7px 1px 12px;gap:5px;border-radius:18px;background:transparent;color:var(--muted);font-size:12px;font-weight:500;line-height:1.25;transition:color .16s,background .16s}
+  .mobile-nav button.active{color:var(--ink);background:transparent;border-radius:18px;font-weight:750}
+  .mobile-nav button>svg{width:25px;height:25px;stroke-width:1.8}
+  .mobile-nav button.active>svg{stroke-width:2.3}
+  .mobile-nav button:after{content:"";position:absolute;bottom:4px;left:calc(50% - 7px);width:14px;height:3px;border-radius:3px;background:transparent}
+  .mobile-nav button.active:after{background:var(--ink)}
+  .mobile-nav button:active{background:var(--panel2)}
+  .mobile-nav button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+  body.dark .mobile-nav{box-shadow:0 8px 32px rgba(0,0,0,.3)}
+}
+/* Semantic colors: never inherit the emerald brand for status information. */
+:root{--info:#246bc1;--info-bg:#edf4ff;--orange:#bd4709;--warning-bg:#fff2e8;--green:#237747;--success-bg:#eaf6ee;--red:#c13838;--danger-bg:#fff0f0;--rating-orange:#f29428}
+body.dark{--info:#83b9ff;--info-bg:#20334a;--orange:#ffac66;--warning-bg:#3c2c22;--green:#7bd4a0;--success-bg:#20392c;--red:#ff9494;--danger-bg:#40272b;--rating-orange:#ffac66}
+#endSessionBtn,#logoutBtn,#mobileLogoutBtn{color:var(--red)}
+#endSessionBtn:hover,#logoutBtn:hover,#mobileLogoutBtn:hover{background:var(--danger-bg)}
+.btn.danger,body.dark .btn.danger,#resetProgressBtn,.deck-menu-actions button.danger{color:var(--red);border-color:var(--red);background:var(--danger-bg)}
+.deck-menu-actions button.danger:hover:not(:disabled),body.dark .deck-menu-actions button.danger:hover:not(:disabled){color:var(--red);background:var(--danger-bg)}
+.btn.secondary:not(.danger):not(#resetProgressBtn),.back-link:not(#endSessionBtn){color:var(--ink)}
+.quran-dialog>header button,.overview-modal>header button,.deck-menu>header button{color:var(--muted);background:var(--panel2)}
+.new-count,.count-new,.due-stat.new b,.home-deck-row>span:nth-child(2){color:var(--info)}
+.learn-count,.count-learn,.due-stat.learn b,.home-deck-row>span:nth-child(3){color:var(--orange)}
+.review-count,.count-review,.due-stat.review b,.home-deck-row>span:nth-child(4){color:var(--green)}
+.dash-metric.blue,body.dark .dash-metric.blue{border-top-color:var(--info)}
+.dash-metric.gold,body.dark .dash-metric.gold{border-top-color:var(--rating-orange)}
+.dash-metric.green,body.dark .dash-metric.green{border-top-color:var(--green)}
+.dash-metric.blue>svg,.dash-metric.blue>span,body.dark .dash-metric.blue>svg{color:var(--info)}
+.dash-metric.gold>svg,.dash-metric.gold>span,body.dark .dash-metric.gold>svg{color:var(--rating-orange)}
+.dash-metric.green>svg,.dash-metric.green>span,body.dark .dash-metric.green>svg{color:var(--green)}
+.summary-icon.blue{color:var(--info);background:var(--info-bg)}
+.summary-icon.orange,body.dark .summary-icon.orange{color:var(--orange);background:var(--warning-bg)}
+.summary-icon.green,body.dark .summary-icon.green{color:var(--green);background:var(--success-bg)}
+.mini-chart .chart-col i,.bar-chart .chart-col i{background:var(--info)}
+.resume-card-inner button,body.dark .resume-card-inner button{color:var(--brand-text);background:var(--brand-fill);border-color:var(--brand-fill)}
+.quick-panel .blue,.quick-panel .green,.quick-panel .violet,.quick-panel .orange,body.dark .quick-panel .blue,body.dark .quick-panel .green,body.dark .quick-panel .violet,body.dark .quick-panel .orange{color:var(--blue);background:var(--blue2)}
+.update-banner,body.dark .update-banner{border-color:var(--info);box-shadow:var(--shadow)}
+.activity-item>i,body.dark .activity-item>i{color:var(--muted);background:var(--panel2)}
+.activity-item[data-grade="again"]>i,body.dark .activity-item[data-grade="again"]>i{color:var(--red);background:var(--danger-bg)}
+.activity-item[data-grade="hard"]>i,body.dark .activity-item[data-grade="hard"]>i{color:var(--orange);background:var(--warning-bg)}
+.activity-item[data-grade="good"]>i,body.dark .activity-item[data-grade="good"]>i{color:var(--info);background:var(--info-bg)}
+.activity-item[data-grade="easy"]>i,body.dark .activity-item[data-grade="easy"]>i{color:var(--green);background:var(--success-bg)}
+button:disabled{color:var(--muted);cursor:not-allowed;opacity:.55}
+/* Review workspace: balanced language cards and a compact assessment dock. */
+.review-view{height:calc(100dvh - 88px);min-height:0;overflow:auto;overscroll-behavior-y:contain;background:var(--bg)}
+.review-top{width:min(920px,100%);margin:0 auto;flex:0 0 auto;height:auto;min-height:0;display:grid;grid-template-columns:72px minmax(0,1fr) 84px;gap:10px;padding:18px 20px 14px;border:0;background:transparent}
+.review-progress{display:contents}
+#reviewDeckName{grid-column:2;grid-row:1;align-self:center;text-align:center;font-weight:700;font-size:16px;line-height:1.3;color:var(--ink);overflow-wrap:anywhere}
+.review-top #endSessionBtn{grid-column:1;grid-row:1;min-height:44px;padding:6px 8px;border-radius:12px;font-size:13px;text-align:center;background:var(--danger-bg)}
+.review-top #endSessionBtn:before{content:none}
+.review-progress #reviewSessionCounts{grid-column:1/-1;grid-row:2;margin:0;text-align:center;color:var(--muted);font-size:12px;line-height:1.5}
+.review-counts{grid-column:3;grid-row:1;justify-content:flex-end;align-items:center;gap:9px;font-size:12px;font-variant-numeric:tabular-nums}
+.review-view #studyCard.study-card,.review-view #studyCard.study-card:not(:has(.card-answer.hidden)),body.dark .review-view #studyCard.study-card{flex:0 0 auto;display:block;width:min(840px,calc(100% - 32px));min-height:0;height:auto;margin:12px auto 0;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none;overflow:visible}
+.review-view #studyCard #cardDirection{display:none}
+.review-view #studyCard .card-content,.review-view #studyCard:has(.card-answer.hidden) .card-content,.review-view #studyCard:not(:has(.card-answer.hidden)) .card-content{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(2,minmax(170px,1fr)) auto auto;gap:12px;width:100%;height:auto;min-height:0;margin:0;padding:0;overflow:visible}
+.review-view #studyCard:has(.card-answer.hidden) .card-content{grid-template-rows:minmax(200px,auto)}
+.review-view #studyCard .card-answer,.review-view #studyCard:not(:has(.card-answer.hidden)) .card-answer{display:contents;margin:0;padding:0;border:0}
+.review-view #studyCard .language-card{display:grid;grid-template-rows:auto 1fr;min-width:0;padding:18px 20px;background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:none;text-align:center}
+.review-view #studyCard .card-content>.language-card{grid-row:1}
+.review-view #studyCard .card-answer>.language-card{grid-row:2;border-color:color-mix(in srgb,var(--blue) 24%,var(--line));background:color-mix(in srgb,var(--blue2) 30%,var(--panel))}
+.review-view #studyCard .language-card>.prompt-label{justify-self:start;display:flex;align-items:center;gap:8px;margin:0;font-size:12px;font-weight:650;letter-spacing:.02em;text-transform:none;color:var(--muted)}
+.review-view #studyCard .language-card>.prompt-label:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--muted)}
+.review-view #studyCard .card-answer .prompt-label:before{background:var(--blue)}
+.review-view #studyCard #cardQuestion,.review-view #studyCard #cardAnswerText,body.dark .review-view #studyCard #cardQuestion,body.dark .review-view #studyCard #cardAnswerText{display:flex;align-items:center;justify-content:center;min-height:0;width:100%;margin:0;padding:18px 0;border:0;border-radius:0;background:transparent;box-shadow:none;color:var(--ink);font-size:clamp(26px,4vw,36px);font-weight:600;line-height:1.55;overflow-wrap:anywhere}
+.review-view #studyCard #cardQuestion.arabic-text,.review-view #studyCard #cardAnswerText.arabic-text{font-size:clamp(36px,6vw,48px);font-weight:400;line-height:1.8}
+.review-view #studyCard .card-note{grid-row:3;margin:0;padding:2px 12px;font-size:14px;line-height:1.6;color:var(--muted)}
+.review-view #studyCard .card-note:empty{display:none}
+.review-view #studyCard .quran-example{grid-row:4;margin:0}
+.review-view #studyCard .quran-example-toggle{display:flex;justify-content:center;gap:10px;min-height:48px;margin:0;padding:12px 14px;border:0;border-radius:12px;background:transparent;color:var(--blue);font-size:14px;box-shadow:none}
+.review-view #studyCard .quran-example-toggle:hover{background:var(--blue2)}
+.review-view .review-controls,.review-view .review-controls:has(.show-answer:not(.hidden)){position:sticky;bottom:0;flex:0 0 auto;width:100%;margin:auto auto 0;padding:16px max(16px,calc((100% - 840px)/2)) calc(18px + env(safe-area-inset-bottom));min-height:0;border:0;border-top:1px solid var(--line);background:var(--panel);z-index:5}
+.review-view .answer-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%}
+.review-view .answer-buttons button{min-width:0;min-height:72px;align-items:center;justify-content:center;gap:5px;padding:12px 4px;border:1px solid var(--line);border-bottom-width:3px;border-radius:12px;font-size:13px;font-weight:650;background:var(--panel);box-shadow:none}
+.review-view .answer-buttons small{font-size:12px;color:var(--muted)}
+.review-view .answer-buttons kbd{display:none}
+.review-view .answer-buttons button:active{transform:translateY(1px);background:var(--panel2)}
+.review-view .show-answer{width:100%;min-width:0;min-height:50px;padding:12px 18px;border-radius:14px;font-size:15px}
+@media(min-width:760px){
+.review-view #studyCard .card-content,.review-view #studyCard:not(:has(.card-answer.hidden)) .card-content{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:minmax(250px,auto) auto auto}
+.review-view #studyCard .card-content>.language-card{grid-column:1;grid-row:1}
+.review-view #studyCard .card-answer>.language-card{grid-column:2;grid-row:1}
+.review-view #studyCard .card-note{grid-column:1/-1;grid-row:2}
+.review-view #studyCard .quran-example{grid-column:1/-1;grid-row:3}
+.review-view #studyCard:has(.card-answer.hidden) .card-content{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(250px,auto)}
+}
+@media(max-width:600px){.review-view{height:100%}.review-top{padding:12px 16px 8px;grid-template-columns:62px minmax(0,1fr) 72px;gap:8px}#reviewDeckName{font-size:15px}}
+@media(max-width:600px){.review-view .answer-buttons{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.review-view .answer-buttons button{font-size:15px;min-height:68px}.review-view .answer-buttons small{font-size:13px}}
+.review-view #studyCard .lesson-example-toggle{grid-column:1/-1;grid-row:5;display:flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--blue);font-size:14px;font-weight:600}
+.review-view #studyCard .lesson-example-toggle:hover{background:var(--blue2)}
+.lesson-example-toggle .lucide{width:20px;height:20px;flex-shrink:0}
+.lesson-verse{font-size:30px;line-height:1.9;text-align:center;padding:16px;background:var(--panel2);border-radius:14px;overflow-wrap:anywhere}
+.lesson-verse mark{color:var(--blue);background:var(--blue2);border-radius:4px}
+.lesson-translation{font-size:16px;line-height:1.7;text-align:center}
+.lesson-dialog details{margin:16px 0;padding:14px;border:1px solid var(--line);border-radius:12px}.lesson-dialog summary{cursor:pointer;font-weight:650;font-size:14px}.lesson-dialog .btn{margin:6px 8px 6px 0}
+.lesson-meta{color:var(--muted);font-size:12px;line-height:1.6}
+.lesson-import{display:grid;gap:10px;padding:16px 0;margin-top:12px;border-top:1px solid var(--line);font-size:14px}.lesson-import input{width:100%;min-width:0;font-size:13px}
+/* Desktop review fills the space above the fixed 30px status bar. */
+@media(min-width:901px){
+  body[data-route="review"] .app-shell{height:100dvh;min-height:0;padding:0 0 30px}
+  body[data-route="review"] main{height:100%;min-height:0}
+  body[data-route="review"] .review-view{height:100%;min-height:0}
+}
+/* Review ratings keep their own semantic colors, independent of the brand. */
+.review-view .answer-buttons .again{border-bottom-color:#dc5e5e}
+.review-view .answer-buttons .hard{border-bottom-color:#e69a39}
+.review-view .answer-buttons .good{border-bottom-color:#2784d8}
+.review-view .answer-buttons .easy{border-bottom-color:#31a56c}
+body.dark .review-view .answer-buttons .again{border-bottom-color:#ef7777}
+body.dark .review-view .answer-buttons .hard{border-bottom-color:#e3a84d}
+body.dark .review-view .answer-buttons .good{border-bottom-color:#4a9be8}
+body.dark .review-view .answer-buttons .easy{border-bottom-color:#54bc82}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
