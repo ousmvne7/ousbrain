@@ -1,4 +1,4 @@
-const CACHE_NAME='ousbrain-brand-v3';
+const CACHE_NAME='ousbrain-brand-v4';
 const APP_SHELL=[
   './',
   './index.html',
@@ -12,7 +12,8 @@ const APP_SHELL=[
   './assets/fonts/hafs.18.ttf',
   './data/hafsData_v18.json',
   './data/quran-fr-hamidullah.json',
-  './data/quran-vocabulary-examples.json'
+  './data/quran-vocabulary-examples.json',
+  './data/qissasou-pending.json'
 ];
 
 self.addEventListener('install',event=>{

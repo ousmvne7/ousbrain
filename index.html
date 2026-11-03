@@ -12,7 +12,7 @@
   <link rel="icon" href="assets/ousbrain-brand.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/ousbrain-brand.png">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="brand.css">
+  <link rel="stylesheet" href="brand.css?v=20261103-library-v2">
 </head>
 <body>
   <div class="app-shell">
@@ -94,48 +94,75 @@
         <button class="text-btn" id="customStudyBtn">Étude personnalisée</button>
         <button class="text-btn" data-route="stats">Options</button>
       </div>
+      <section class="queue-panel card-panel hidden" id="queuePanel" aria-labelledby="queueTitle">
+        <header>
+          <span class="queue-icon"><i data-lucide="inbox"></i></span>
+          <div>
+            <p class="kicker">BIBLIOTHÈQUE FUTURE</p>
+            <h2 id="queueTitle">File d’attente</h2>
+          </div>
+          <span class="queue-total"><b id="queueRemaining">0</b><small>en attente</small></span>
+        </header>
+        <div class="queue-next">
+          <span><small>Prochaine carte</small><b id="queueNextFront"></b></span>
+          <span><small>Traduction</small><b id="queueNextBack"></b></span>
+          <em id="queueNextLesson"></em>
+        </div>
+        <footer>
+          <p id="queueProgressText"></p>
+          <button type="button" class="btn primary icon-label" id="queueAddBtn"><i data-lucide="list-plus"></i>Ajouter des cartes</button>
+        </footer>
+      </section>
     </section>
   </template>
 
   <template id="reviewView">
     <section class="review-view">
       <div class="review-top">
-        <button class="back-link" id="endSessionBtn">Fermer</button>
-        <div class="review-progress"><span id="reviewDeckName"></span><small id="reviewSessionCounts" aria-live="polite"></small></div>
-        <div class="review-counts"><span class="new-count" id="sessionNew" title="Nouvelles cartes">0</span><span class="learn-count" id="sessionLearn" title="En cours">0</span><span class="review-count" id="sessionReview" title="À réviser">0</span></div>
-        <div class="review-session-meter" aria-label="Progression de la session">
-          <span><i id="reviewProgressBar"></i></span>
-          <b id="reviewProgressLabel">0 / 0</b>
+        <div class="review-toolbar">
+          <button class="back-link" id="endSessionBtn" aria-label="Fermer la session"><i data-lucide="arrow-left"></i><span>Fermer</span></button>
+          <div class="review-progress"><span id="reviewDeckName"></span><small id="reviewSessionCounts" aria-live="polite"></small></div>
+          <span class="review-toolbar-balance" aria-hidden="true"></span>
+        </div>
+        <div class="review-statusline">
+          <div class="review-counts" aria-label="État des cartes">
+            <span class="new-count"><b id="sessionNew">0</b><small>Nouvelles</small></span>
+            <span class="learn-count"><b id="sessionLearn">0</b><small>En cours</small></span>
+            <span class="review-count"><b id="sessionReview">0</b><small>À réviser</small></span>
+          </div>
+          <div class="review-session-meter" aria-label="Progression de la session">
+            <span><i id="reviewProgressBar"></i></span>
+            <strong class="review-position" id="reviewProgressLabel">0 / 0</strong>
+          </div>
         </div>
       </div>
       <article class="study-card" id="studyCard">
-        <div class="card-tag" id="cardDirection"></div>
         <div class="card-content">
           <section class="language-card" aria-labelledby="reviewFrontLabel">
             <p class="prompt-label" id="reviewFrontLabel">À retrouver</p>
             <div class="card-question" id="cardQuestion"></div>
           </section>
-          <p class="reveal-hint"><i data-lucide="hand-pointer"></i>Touchez la carte pour révéler</p>
+          <p class="reveal-hint"><i data-lucide="eye"></i>Touchez la carte pour révéler</p>
           <div class="card-answer hidden" id="cardAnswer">
             <section class="language-card" aria-labelledby="reviewBackLabel">
               <p class="prompt-label" id="reviewBackLabel">Traduction</p><div id="cardAnswerText"></div>
             </section>
             <p class="card-note" id="cardNote"></p>
-            <section class="quran-example hidden" id="quranExample">
-              <button type="button" class="quran-example-toggle icon-label" id="quranExampleToggle"><i data-lucide="book-open"></i>Voir un exemple dans le Coran <i data-lucide="chevron-down"></i></button>
-              <div class="quran-example-panel hidden" id="quranExamplePanel">
-                <p class="quran-example-label">EXEMPLE DANS LE CORAN</p>
-                <p class="quran-example-verse arabic-text" id="quranExampleVerse" lang="ar" dir="rtl"></p>
-                <p class="quran-example-reference" id="quranExampleReference"></p>
-                <p class="quran-example-translation" id="quranExampleTranslation"></p>
-                <p class="quran-example-match" id="quranExampleMatch"></p>
-              </div>
-            </section>
           </div>
         </div>
       </article>
       <div class="review-controls">
         <button class="show-answer" id="showAnswerBtn"><i data-lucide="eye"></i><span>Afficher la réponse</span><kbd>Espace</kbd></button>
+        <section class="quran-example review-quran-action hidden" id="quranExample">
+          <button type="button" class="quran-example-toggle icon-label" id="quranExampleToggle"><i data-lucide="book-open"></i>Voir un exemple dans le Coran <i data-lucide="chevron-down"></i></button>
+          <div class="quran-example-panel hidden" id="quranExamplePanel">
+            <p class="quran-example-label">EXEMPLE DANS LE CORAN</p>
+            <p class="quran-example-verse arabic-text" id="quranExampleVerse" lang="ar" dir="rtl"></p>
+            <p class="quran-example-reference" id="quranExampleReference"></p>
+            <p class="quran-example-translation" id="quranExampleTranslation"></p>
+            <p class="quran-example-match" id="quranExampleMatch"></p>
+          </div>
+        </section>
         <div class="answer-buttons hidden" id="answerButtons">
           <button data-grade="again" class="again"><span>Encore</span><small id="againInterval">&lt; 1 min</small><kbd>1</kbd></button>
           <button data-grade="hard" class="hard"><span>Difficile</span><small id="hardInterval">6 min</small><kbd>2</kbd></button>
@@ -222,6 +249,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script src="assets/ts-fsrs.umd.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=20261103-library-v2"></script>
 </body>
 </html>
