@@ -555,6 +555,8 @@ body.dark .review-view .answer-buttons .easy{border-bottom-color:#54bc82}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
+.review-view #studyCard .review-anchor-badge{display:inline-flex;align-items:center;vertical-align:middle;margin-inline-start:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--orange) 12%,var(--panel));color:var(--orange);font-size:10px;font-weight:750;line-height:1.2;letter-spacing:.02em;text-transform:none;white-space:nowrap}
+
 /* Full-screen review workspace: the card adapts to the space between header and actions. */
 @media(max-width:600px){
   body[data-route="review"],body[data-route="review"] .app-shell,body[data-route="review"] main{height:100dvh;min-height:0;overflow:hidden}
