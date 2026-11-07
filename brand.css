@@ -555,7 +555,10 @@ body.dark .review-view .answer-buttons .easy{border-bottom-color:#54bc82}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
-.review-view #studyCard .review-anchor-badge{display:inline-flex;align-items:center;vertical-align:middle;margin-inline-start:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--orange) 12%,var(--panel));color:var(--orange);font-size:10px;font-weight:750;line-height:1.2;letter-spacing:.02em;text-transform:none;white-space:nowrap}
+.review-view #studyCard .review-anchor-badge{display:inline-flex;align-items:center;vertical-align:middle;margin-inline-start:8px;padding:3px 8px;border-radius:999px;background:var(--anchor-orange,#e69a39);color:#252b2a;font-size:10px;font-weight:750;line-height:1.2;letter-spacing:.02em;text-transform:none;white-space:nowrap}
+.review-view #studyCard.study-card:has(#reviewAnchorBadge){--anchor-orange:#e69a39;border-color:var(--anchor-orange);background:color-mix(in srgb,var(--anchor-orange) 9%,var(--panel))}
+body.dark .review-view #studyCard.study-card:has(#reviewAnchorBadge){--anchor-orange:#e3a84d}
+.review-view #studyCard.study-card:has(#reviewAnchorBadge) .language-card{border-color:color-mix(in srgb,var(--anchor-orange) 45%,var(--line));background:color-mix(in srgb,var(--anchor-orange) 5%,var(--panel))}
 
 /* Full-screen review workspace: the card adapts to the space between header and actions. */
 @media(max-width:600px){
