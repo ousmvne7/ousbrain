@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#087f5b">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="OusBrain">
-  <title>OusBrain — Arabe &amp; Coran</title>
+  <meta name="apple-mobile-web-app-title" content="Kalima">
+  <title>Kalima — Arabe &amp; Coran</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/ousbrain-brand.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/ousbrain-brand.png">
@@ -17,7 +17,7 @@
 <body>
   <div class="app-shell">
     <header class="topbar">
-      <button class="brand" data-route="home" aria-label="Accueil OusBrain"><img class="brand-logo" src="assets/ousbrain-brand.png" alt="" width="46" height="46"><span>OusBrain</span><b>Arabe &amp; Coran</b></button>
+      <button class="brand" data-route="home" aria-label="Accueil Kalima"><img class="brand-logo" src="assets/ousbrain-brand.png" alt="" width="46" height="46"><span>Kalima</span><b>Arabe &amp; Coran</b></button>
       <nav class="main-nav" aria-label="Navigation principale">
         <button data-route="home" class="nav-item active">Accueil</button>
         <button data-route="decks" class="nav-item">Paquets</button>
@@ -33,7 +33,7 @@
       </div>
     </header>
 
-    <header class="mobile-header"><button class="mobile-brand" data-route="home"><img class="brand-logo" src="assets/ousbrain-brand.png" alt="" width="40" height="40"><b>OusBrain</b></button><span><button class="icon-btn" data-route="settings" aria-label="Réglages"><i data-lucide="settings"></i></button><button class="icon-btn" id="mobileLogoutBtn" aria-label="Se déconnecter"><i data-lucide="log-out"></i></button></span></header>
+    <header class="mobile-header"><button class="mobile-brand" data-route="home"><img class="brand-logo" src="assets/ousbrain-brand.png" alt="" width="40" height="40"><b>Kalima</b></button><span><button class="icon-btn" data-route="settings" aria-label="Réglages"><i data-lucide="settings"></i></button><button class="icon-btn" id="mobileLogoutBtn" aria-label="Se déconnecter"><i data-lucide="log-out"></i></button></span></header>
 
     <main id="app" tabindex="-1"></main>
 
@@ -86,7 +86,10 @@
           <div class="due-stat learn"><b id="overviewLearn">0</b><span>À apprendre</span></div>
           <div class="due-stat review"><b id="overviewReview">0</b><span>À réviser</span></div>
         </div>
-        <button class="study-button" id="studyBtn">Commencer à étudier</button>
+        <div style="display:flex;justify-content:center;gap:10px">
+          <button class="study-button" id="studyBtn" style="min-width:0;padding-inline:12px">Commencer à étudier</button>
+          <button class="btn danger" id="practiceBtn" type="button" title="Sans modifier vos prochaines révisions" style="min-width:0;padding-inline:12px">S’entraîner</button>
+        </div>
         <p class="next-due" id="nextDue"></p>
       </div>
       <div class="overview-actions">
@@ -220,7 +223,7 @@
   </template>
 
   <template id="settingsView">
-    <section class="view settings-view"><div class="view-head"><div><p class="kicker">OUSBRAIN</p><h1>Réglages</h1></div></div><div class="settings-list card-panel"><label><span><b>Mode sombre</b><small>Adapter l’interface pour le soir</small></span><input type="checkbox" id="darkMode"></label><label><span><b>Sens de révision</b><small>Direction utilisée pendant les sessions</small></span><select id="directionSetting"><option value="mixed">Mixte</option><option value="front-back">Recto → Verso</option><option value="back-front">Verso → Recto</option></select></label><label><span><b>Objectif quotidien</b><small>Nombre maximal de nouvelles cartes</small></span><input type="number" id="dailyLimit" min="1" max="100"></label><label><span><b>Étapes d’apprentissage</b><small>Délais séparés par des espaces, comme dans Anki</small></span><input type="text" id="learningSteps" placeholder="1m 10m"></label><label><span><b>Intervalle de graduation</b><small>Premier intervalle après la dernière étape</small></span><input type="number" id="graduatingInterval" min="1" max="365"><em>jours</em></label><label><span><b>Intervalle facile</b><small>Graduation directe avec le bouton Facile</small></span><input type="number" id="easyInterval" min="1" max="365"><em>jours</em></label><label><span><b>Anticipation</b><small>Afficher plus tôt les cartes d’apprentissage s’il ne reste rien</small></span><input type="number" id="learnAhead" min="0" max="1440"><em>minutes</em></label><div class="settings-actions"><button class="btn secondary" id="resetProgressBtn">Réinitialiser la progression</button><button class="btn secondary" id="exportDataBtn">Exporter les données</button><button class="btn danger" id="resetDataBtn">Réinitialiser la collection</button></div></div></section>
+    <section class="view settings-view"><div class="view-head"><div><p class="kicker">KALIMA</p><h1>Réglages</h1></div></div><div class="settings-list card-panel"><label><span><b>Mode sombre</b><small>Adapter l’interface pour le soir</small></span><input type="checkbox" id="darkMode"></label><label><span><b>Sens de révision</b><small>Direction utilisée pendant les sessions</small></span><select id="directionSetting"><option value="mixed">Mixte</option><option value="front-back">Recto → Verso</option><option value="back-front">Verso → Recto</option></select></label><label><span><b>Objectif quotidien</b><small>Nombre maximal de nouvelles cartes</small></span><input type="number" id="dailyLimit" min="1" max="100"></label><label><span><b>Étapes d’apprentissage</b><small>Délais séparés par des espaces, comme dans Anki</small></span><input type="text" id="learningSteps" placeholder="1m 10m"></label><label><span><b>Intervalle de graduation</b><small>Premier intervalle après la dernière étape</small></span><input type="number" id="graduatingInterval" min="1" max="365"><em>jours</em></label><label><span><b>Intervalle facile</b><small>Graduation directe avec le bouton Facile</small></span><input type="number" id="easyInterval" min="1" max="365"><em>jours</em></label><label><span><b>Anticipation</b><small>Afficher plus tôt les cartes d’apprentissage s’il ne reste rien</small></span><input type="number" id="learnAhead" min="0" max="1440"><em>minutes</em></label><div class="settings-actions"><button class="btn secondary" id="resetProgressBtn">Réinitialiser la progression</button><button class="btn secondary" id="exportDataBtn">Exporter les données</button><button class="btn danger" id="resetDataBtn">Réinitialiser la collection</button></div></div></section>
   </template>
 
   <div class="toast" id="toast" role="status"></div>
@@ -232,7 +235,7 @@
   <input type="file" id="fileImport" accept="application/json,.json" hidden>
   <div class="auth-gate" id="authGate">
     <section class="auth-card card-panel">
-      <div class="auth-brand"><img class="brand-logo" src="assets/ousbrain-brand.png" alt="" width="46" height="46"><div><h1>OusBrain</h1><p>Arabe &amp; Coran</p></div></div>
+      <div class="auth-brand"><img class="brand-logo" src="assets/ousbrain-brand.png" alt="" width="46" height="46"><div><h1>Kalima</h1><p>Arabe &amp; Coran</p></div></div>
       <h2>Connexion</h2>
       <p>Retrouvez votre collection et votre progression sur tous vos appareils.</p>
       <form id="authForm">
@@ -249,6 +252,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script src="assets/ts-fsrs.umd.js"></script>
-  <script src="app.js?v=20261107-anchor-fsrs"></script>
+  <script src="app.js?v=20261110-free-practice"></script>
 </body>
 </html>

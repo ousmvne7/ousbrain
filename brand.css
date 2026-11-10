@@ -24,6 +24,7 @@ h1,h2,h3{color:var(--ink);letter-spacing:-.035em;line-height:1.18}
 .btn.danger,body.dark .btn.danger{background:var(--panel);color:var(--red);border-color:var(--red)}
 .card-panel,.dash-panel,.deck-table,.today-summary>div,.metric,.chart-panel{border-radius:18px;border-color:var(--line);box-shadow:var(--shadow);background:var(--panel)}
 .dashboard-metrics{gap:14px;margin:26px 0}
+.dashboard-view .dashboard-grid.lower{display:none}
 .dash-metric,body.dark .dash-metric{position:relative;min-height:120px;border-color:var(--line);border-radius:16px;padding:20px;box-shadow:none}
 .dash-metric.blue,.dash-metric.gold,.dash-metric.green,body.dark .dash-metric.blue,body.dark .dash-metric.gold,body.dark .dash-metric.green{background:var(--panel)}
 .dash-metric.blue{border-top:3px solid var(--blue)}
