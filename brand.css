@@ -18,6 +18,7 @@ h1,h2,h3{color:var(--ink);letter-spacing:-.035em;line-height:1.18}
 .icon-btn{min-width:44px;min-height:44px;border-radius:12px}
 .btn,.study-button,.show-answer,.custom-select-trigger{border-radius:12px;min-height:46px;font-size:14px}
 .btn.primary,.study-button,.show-answer,.hero-study,body.dark .hero-study{background:var(--brand-fill);border-color:var(--brand-fill);color:var(--brand-text);box-shadow:none}
+#studyBtn:disabled{opacity:1;background:var(--panel2);color:var(--muted);border:1px solid var(--line);cursor:not-allowed}
 .hero-study:hover,body.dark .hero-study:hover{background:var(--brand-fill);filter:brightness(.95)}
 .btn.secondary{background:var(--panel)}
 .btn.danger,body.dark .btn.danger{background:var(--panel);color:var(--red);border-color:var(--red)}
